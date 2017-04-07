@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <!-- air-conditioning -->
+ <text key="air-conditioning">Climatizzazione</text>
+ <text key="air-conditioning-description">Climatizzazione ambientale</text>
+
+ <!-- alerts -->
+ <text key="air-conditioning_alert_locationError">Si è verificato un errore durante il salvaraggio della location</text>
+ <text key="air-conditioning_alert_locationNotFound">La location non è stata trovata</text>
+ <text key="air-conditioning_alert_locationCreated">La location è stata creata</text>
+ <text key="air-conditioning_alert_locationUpdated">La location è stata aggiornata</text>
+ <text key="air-conditioning_alert_locationDeleted">La location è stata eliminata</text>
+ <text key="air-conditioning_alert_locationUndeleted">La location è stata ripristinata</text>
+ <text key="air-conditioning_alert_locationRemoved">La location è stata rimossa</text>
+
+ <!-- navigation -->
+ <text key="nav-locations-add">Aggiungi location</text>
+ <text key="nav-locations-operations-edit">Modifica location</text>
+ <text key="nav-locations-operations-zone_add">Aggiungi zona</text>
+
+ <!-- appliances -->
+ <text key="appliance-heater">Riscaldamento</text>
+ <text key="appliance-cooler">Condizionatore</text>
+ <text key="appliance-humidifier">Umidificatore</text>
+ <text key="appliance-dehumidifier">Deumidificatore</text>
+
+ <!-- locations_list -->
+ <text key="locations_list">Locations</text>
+ <text key="locations_list-tr-unvalued">Non sono presenti locations da mostrare..</text>
+ <text key="locations_list-th-name">Location</text>
+ <text key="locations_list-th-description">Descrizione</text>
+ <text key="locations_list-td-view">Visualizza location</text>
+ <text key="locations_list-td-edit">Modifica location</text>
+ <text key="locations_list-td-delete">Elimina location</text>
+ <text key="locations_list-td-delete-confirm">Confermi di voler eliminare questa location?</text>
+
+ <!-- locations_view -->
+ <text key="locations_view">Location</text>
+ <text key="locations_view-dt-name">Location</text>
+ <text key="locations_view-dt-description">Descrizione</text>
+ <text key="locations_view-dt-zones">Zone</text>
+
+</locale>
