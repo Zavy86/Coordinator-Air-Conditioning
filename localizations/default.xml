@@ -41,5 +41,15 @@
  <text key="locations_view-dt-name">Location</text>
  <text key="locations_view-dt-description">Descrizione</text>
  <text key="locations_view-dt-zones">Zone</text>
+ <text key="locations_view-zones-tr-unvalued">Non sono presenti zone da mostrare..</text>
+
+ <!-- locations_edit -->
+ <text key="locations_edit">Modifica location</text>
+ <text key="locations_edit-add">Nuova location</text>
+ <text key="locations_edit-ff-name">Nome</text>
+ <text key="locations_edit-ff-name-placeholder">Nome della location</text>
+ <text key="locations_edit-ff-description">Descrizione</text>
+ <text key="locations_edit-ff-description-placeholder">Descrizione della location</text>
+ <text key="locations_edit-fc-delete-confirm">Confermi di voler contrassegnare come eliminata questa location?</text>
 
 </locale>
