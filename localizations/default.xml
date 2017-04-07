@@ -19,6 +19,10 @@
  <text key="nav-locations-add">Aggiungi location</text>
  <text key="nav-locations-operations-edit">Modifica location</text>
  <text key="nav-locations-operations-zone_add">Aggiungi zona</text>
+ <text key="nav-locations-operations-undelete">Ripristina location</text>
+ <text key="nav-locations-operations-undelete-confirm">Confermi di voler ripristinare questa location?</text>
+ <text key="nav-locations-operations-remove">Rimuovi location</text>
+ <text key="nav-locations-operations-remove-confirm">Confermi di voler rimuovere definitivamente questa location?</text>
 
  <!-- appliances -->
  <text key="appliance-heater">Riscaldamento</text>
@@ -35,9 +39,12 @@
  <text key="locations_list-td-edit">Modifica location</text>
  <text key="locations_list-td-delete">Elimina location</text>
  <text key="locations_list-td-delete-confirm">Confermi di voler eliminare questa location?</text>
+ <text key="locations_list-td-undelete">Rispristina location</text>
+ <text key="locations_list-td-undelete-confirm">Confermi di voler ripristinare questa location?</text>
 
  <!-- locations_view -->
  <text key="locations_view">Location</text>
+ <text key="locations_view-deleted-alert">Attenzione, questa location è stata eliminata</text>
  <text key="locations_view-dt-name">Location</text>
  <text key="locations_view-dt-description">Descrizione</text>
  <text key="locations_view-dt-zones">Zone</text>

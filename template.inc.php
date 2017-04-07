@@ -31,6 +31,7 @@
     // check for deleted
     if($location_obj->deleted){
      $nav->addSubItem(api_text("nav-locations-operations-undelete"),"?mod=air-conditioning&scr=submit&act=location_undelete&idLocation=".$location_obj->id,TRUE,api_text("nav-locations-operations-undelete-confirm"));
+     $nav->addSubItem(api_text("nav-locations-operations-remove"),"?mod=air-conditioning&scr=submit&act=location_remove&idLocation=".$location_obj->id,TRUE,api_text("nav-locations-operations-remove-confirm"));
     }else{
      $nav->addSubItem(api_text("nav-locations-operations-edit"),"?mod=air-conditioning&scr=locations_edit&idLocation=".$location_obj->id);
      $nav->addSubItem(api_text("nav-locations-operations-zone_add"),"?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&act=zone_add");
