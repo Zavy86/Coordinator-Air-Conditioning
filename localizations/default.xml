@@ -30,6 +30,12 @@
  <text key="appliance-humidifier">Umidificatore</text>
  <text key="appliance-dehumidifier">Deumidificatore</text>
 
+ <!-- dashboard -->
+ <text key="dashboard-location-detection"><![CDATA[{0}]]>°C (<![CDATA[{1}]]>%)</text>
+ <text key="dashboard-location-detection_offline">Offline</text>
+ <text key="dashboard-manage">Amministrazione</text>
+ <text key="dashboard-manage-description">Gestione locations, zone e apparecchi</text>
+
  <!-- locations_list -->
  <text key="locations_list">Locations</text>
  <text key="locations_list-tr-unvalued">Non sono presenti locations da mostrare..</text>
@@ -54,7 +60,7 @@
  <text key="locations_view-zones-td-move-down">Sposta in basso</text>
  <text key="locations_view-zones-td-delete">Elimina zona</text>
  <text key="locations_view-zones-td-delete-confirm">Confermi di voler eliminare questa zona?</text>
- 
+
  <text key="locations_view-zone_info-dt-description">Descrizione</text>
  <text key="locations_view-zone_info-dt-token">Token</text>
  <text key="locations_view-zone_info-dt-appliances">Apparecchi</text>

@@ -127,7 +127,7 @@ class cAirConditioningLocationZone{
   if($timestamp){$query_where=" AND `timestamp`>='".$timestamp."'";}
   // get detections
   $detections_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones_detections` WHERE `fkZone`='".$this->id."'".$query_where." ORDER BY `timestamp` DESC".$query_limit);
-  foreach($detections_results as $detection){$detections_array[$detection->id]=new cAirConditioningLocationZoneDetection($detection);}
+  foreach($detections_results as $detection){$detections_array[]=new cAirConditioningLocationZoneDetection($detection);}
   // return
   return $detections_array;
  }
