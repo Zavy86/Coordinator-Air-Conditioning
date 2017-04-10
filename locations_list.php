@@ -18,7 +18,7 @@
  $table->addHeader(api_text("locations_list-th-description"),NULL,"100%");
  $table->addHeader("&nbsp;",NULL,16);
  // cycle all locations
- foreach(api_airConditioning_locations() as $location_obj){
+ foreach(api_airConditioning_locations(TRUE) as $location_obj){
   // build operation button
   $ob=new cOperationsButton();
   $ob->addElement("?mod=air-conditioning&scr=locations_edit&idLocation=".$location_obj->id,"fa-pencil",api_text("locations_list-td-edit"));

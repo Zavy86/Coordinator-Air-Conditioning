@@ -48,15 +48,43 @@
  <text key="locations_view-dt-name">Location</text>
  <text key="locations_view-dt-description">Descrizione</text>
  <text key="locations_view-dt-zones">Zone</text>
+
  <text key="locations_view-zones-tr-unvalued">Non sono presenti zone da mostrare..</text>
+ <text key="locations_view-zones-td-edit">Modifica zona</text>
+ <text key="locations_view-zones-td-move-up">Sposta in alto</text>
+ <text key="locations_view-zones-td-move-down">Sposta in basso</text>
+ <text key="locations_view-zones-td-delete">Elimina zona</text>
+ <text key="locations_view-zones-td-delete-confirm">Confermi di voler eliminare questa zona?</text>
+
+ <text key="locations_view-zones_modal-title-add">Aggiungi zona</text>
+ <text key="locations_view-zones_modal-title-edit">Modifica zona</text>
+ <text key="locations_view-zones_modal-ff-name">Nome</text>
+ <text key="locations_view-zones_modal-ff-name-placeholder">Nome della zona</text>
+ <text key="locations_view-zones_modal-ff-description">Descrizione</text>
+ <text key="locations_view-zones_modal-ff-description-placeholder">Descrizione della zona</text>
+ <text key="locations_view-zones_modal-ff-token">Token</text>
+ <text key="locations_view-zones_modal-ff-appliance-placeholder">Seleziona il relé a cui è collegato l'apparecchio..</text>
+ <text key="locations_view-zones_modal-fo-relay">Relé {0}</text>
 
  <!-- locations_edit -->
  <text key="locations_edit">Modifica location</text>
  <text key="locations_edit-add">Nuova location</text>
- <text key="locations_edit-ff-name">Nome</text>
+ <text key="locations_edit-ff-name">Location</text>
  <text key="locations_edit-ff-name-placeholder">Nome della location</text>
  <text key="locations_edit-ff-description">Descrizione</text>
  <text key="locations_edit-ff-description-placeholder">Descrizione della location</text>
  <text key="locations_edit-fc-delete-confirm">Confermi di voler contrassegnare come eliminata questa location?</text>
+
+  <!-- locations_zones_edit -->
+ <text key="locations_zones_edit">Modifica zona</text>
+ <text key="locations_zones_edit-add">Aggiungi zona</text>
+ <text key="locations_zones_edit-ff-location">Location</text>
+ <text key="locations_zones_edit-ff-token">Token</text>
+ <text key="locations_zones_edit-fo-token-new">Genera un nuovo token per il dispositivo</text>
+ <text key="locations_zones_edit-ff-name">Zona</text>
+ <text key="locations_zones_edit-ff-name-placeholder">Nome della zona</text>
+ <text key="locations_zones_edit-ff-description">Descrizione</text>
+ <text key="locations_zones_edit-ff-description-placeholder">Descrizione della zona</text>
+ <text key="locations_zones_edit-fc-delete-confirm">Confermi di voler contrassegnare come eliminata questa zona?</text>
 
 </locale>

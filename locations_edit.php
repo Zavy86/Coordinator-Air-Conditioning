@@ -12,7 +12,7 @@
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
- $html->setTitle(api_text("locations_edit"));
+ $html->setTitle(($zone_obj->id?api_text("locations_edit"):api_text("locations_edit-add")));
  // build location form
  $form=new cForm("?mod=air-conditioning&scr=submit&act=location_save&idLocation=".$location_obj->id,"POST",null,"locations_edit");
  $form->addField("text","name",api_text("locations_edit-ff-name"),$location_obj->name,api_text("locations_edit-ff-name-placeholder"),NULL,NULL,NULL,"required");

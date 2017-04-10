@@ -51,7 +51,7 @@ class cAirConditioningLocation{
   $this->deleted=(int)$location->deleted;
   // get zones
   $this->zones_array=array();
-  $zones_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones` WHERE `fkLocation`='".$this->id."' ORDER BY `name`"); /** @toto order? */
+  $zones_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones` WHERE `fkLocation`='".$this->id."' ORDER BY `order`");
   foreach($zones_results as $zone){$this->zones_array[$zone->id]=new cAirConditioningLocationZone($zone);}
   return TRUE;
  }

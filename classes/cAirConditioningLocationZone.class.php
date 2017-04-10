@@ -14,9 +14,14 @@ class cAirConditioningLocationZone{
 
  /** Properties */
  protected $id;
+ protected $order;
  protected $name;
  protected $description;
  protected $token;
+ protected $heater_relay;
+ protected $cooler_relay;
+ protected $dehumidifier_relay;
+ protected $humidifier_relay;
 
  protected $addTimestamp;
  protected $addFkUser;
@@ -45,19 +50,26 @@ class cAirConditioningLocationZone{
   if(!$zone->id){return FALSE;}
   // set properties
   $this->id=(int)$zone->id;
+  $this->order=(int)$zone->order;
   $this->name=stripslashes($zone->name);
   $this->description=stripslashes($zone->description);
   $this->token=stripslashes($zone->token);
+  $this->heater_relay=(int)$zone->heater_relay;
+  $this->cooler_relay=(int)$zone->cooler_relay;
+  $this->dehumidifier_relay=(int)$zone->dehumidifier_relay;
+  $this->humidifier_relay=(int)$zone->humidifier_relay;
 
   $this->addTimestamp=(int)$zone->addTimestamp;
   $this->addFkUser=(int)$zone->addFkUser;
   $this->updTimestamp=(int)$zone->updTimestamp;
   $this->updFkUser=(int)$zone->updFkUser;
   $this->deleted=(int)$zone->deleted;
-  // get appliances
+  // set appliances
   $this->appliances_array=array();
-  $appliances_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones_appliances` WHERE `fkZone`='".$this->id."' ORDER BY `appliance`"); /** @todo order? */
-  foreach($appliances_results as $appliance){$this->appliances_array[$appliance->id]=new cAirConditioningLocationZoneAppliance($appliance);}
+  if($this->heater_relay){$this->appliances_array['heater']=$this->buildAppliance("heater");}
+  if($this->cooler_relay){$this->appliances_array['cooler']=$this->buildAppliance("cooler");}
+  if($this->dehumidifier_relay){$this->appliances_array['dehumidifier']=$this->buildAppliance("dehumidifier");}
+  if($this->humidifier_relay){$this->appliances_array['humidifier']=$this->buildAppliance("humidifier");}
   return TRUE;
  }
 
@@ -70,22 +82,55 @@ class cAirConditioningLocationZone{
  public function __get($property){return $this->$property;}
 
  /**
+  * Build Appliance
+  *
+  * @param stroing $appliance Appliance
+  * @param boolean $showIcon Show icon
+  * @param boolean $showText Show text
+  * @return string Appliance text and icon
+  */
+ public function buildAppliance($appliance,$showIcon=TRUE,$showText=TRUE){
+  // definitions
+  $return=new stdClass();
+  // switch gender
+  switch($appliance){
+   case "heater":$icon=api_icon("fa-fire",api_text("appliance-heater"));$text=api_text("appliance-heater");break;
+   case "cooler":$icon=api_icon("fa-snowflake-o",api_text("appliance-cooler"));$text=api_text("appliance-cooler");break;
+   case "humidifier":$icon=api_icon("fa-tint",api_text("appliance-humidifier"));$text=api_text("appliance-humidifier");break;
+   case "dehumidifier":$icon=api_icon("fa-cloud",api_text("appliance-dehumidifier"));$text=api_text("appliance-dehumidifier");break;
+   default:return NULL;
+  }
+  // return
+  $return->appliance=$icon." ".$text;
+  $return->name=$text;
+  $return->icon=$icon;
+  return $return;
+ }
+
+ /**
   * Get Appliances
   *
-  * @param boolean $showIcon show icon
-  * @param boolean $showText show text
-  * @return string gender text and icon
+  * @param boolean $showIcon Show icon
+  * @param boolean $showText Show text
+  * @return string Appliances list
   */
  public function getAppliances($glue=", ",$showIcon=TRUE,$showText=TRUE){
-
+  // definitions
   $appliances_array=array();
-
+  // cycle all appliances
   foreach($this->appliances_array as $appliance_obj){
-   $appliances_array[]=$appliance_obj->getAppliance($showIcon,$showText);
+   if($showIcon){
+    if($showText){
+     $appliances_array[]=$appliance_obj->full;
+    }else{
+     $appliances_array[]=$appliance_obj->icon;
+    }
+   }else{
+    $appliances_array[]=$appliance_obj->text;
+   }
   }
-
+  // return
   $return=implode($glue,$appliances_array);
-
   return $return;
  }
 
