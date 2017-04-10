@@ -27,8 +27,8 @@
  $form->addField("text","description",api_text("locations_zones_edit-ff-description"),$zone_obj->description,api_text("locations_zones_edit-ff-description-placeholder"));
  foreach(api_airConditioning_availableAppliances() as $code=>$appliance){
   $field=$code."_relay";
-  $form->addField("select",$field,$appliance,$zone_obj->$field,api_text("locations_view-zones_modal-ff-appliance-placeholder"));
-  for($relay=1;$relay<=4;$relay++){$form->addFieldOption($relay,api_text("locations_view-zones_modal-fo-relay",$relay));}
+  $form->addField("select",$field,$appliance,$zone_obj->$field,api_text("locations_zones_edit-ff-appliance-placeholder"));
+  for($relay=1;$relay<=4;$relay++){$form->addFieldOption($relay,api_text("locations_zones_edit-fo-relay",$relay));}
  }
  // controls
  $form->addControl("submit",api_text("form-fc-submit"));

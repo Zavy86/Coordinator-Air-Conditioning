@@ -84,6 +84,8 @@
  <text key="locations_zones_edit-ff-name-placeholder">Nome della zona</text>
  <text key="locations_zones_edit-ff-description">Descrizione</text>
  <text key="locations_zones_edit-ff-description-placeholder">Descrizione della zona</text>
+ <text key="locations_zones_edit-ff-appliance-placeholder">Seleziona il relé a cui è collegato questo apparecchio..</text>
+ <text key="locations_zones_edit-fo-relay">Relé <![CDATA[{0}]]></text>
  <text key="locations_zones_edit-fc-delete-confirm">Confermi di voler contrassegnare come eliminata questa zona?</text>
 
 </locale>

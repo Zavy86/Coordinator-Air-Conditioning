@@ -27,7 +27,6 @@ class cAirConditioningLocationZone{
  protected $addFkUser;
  protected $updTimestamp;
  protected $updFkUser;
- protected $deleted;
 
  protected $appliances_array;
 
@@ -64,7 +63,6 @@ class cAirConditioningLocationZone{
   $this->addFkUser=(int)$zone->addFkUser;
   $this->updTimestamp=(int)$zone->updTimestamp;
   $this->updFkUser=(int)$zone->updFkUser;
-  $this->deleted=(int)$zone->deleted;
   // set appliances
   $this->appliances_array=array();
   if($this->heater_relay){$this->appliances_array['heater']=$this->buildAppliance("heater");}
