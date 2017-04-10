@@ -24,6 +24,8 @@
  $zones_table=new cTable(api_text("locations_view-zones-tr-unvalued"));
  // cycle location zones
  foreach($location_obj->zones_array as $zone_obj){
+  // check selected
+  if($zone_obj->id==$selected_zone_obj->id){$tr_class="info";}else{$tr_class=NULL;}
   // build operations button
   $ob_obj=new cOperationsButton();
   $ob_obj->addElement("?mod=air-conditioning&scr=locations_view&act=zone_info&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,"fa-info-circle",api_text("locations_view-zones-td-info"));
@@ -32,7 +34,7 @@
   $ob_obj->addElement("?mod=air-conditioning&scr=submit&act=location_zone_move_down&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,"fa-arrow-down",api_text("locations_view-zones-td-move-down"),($zone_obj->order<count($location_obj->zones_array)?TRUE:FALSE));
   $ob_obj->addElement("?mod=air-conditioning&scr=submit&act=location_zone_delete&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,"fa-trash",api_text("locations_view-zones-td-delete"),true,api_text("locations_view-zones-td-delete-confirm"));
   // add zone row
-  $zones_table->addRow();
+  $zones_table->addRow($tr_class);
   $zones_table->addRowField($zone_obj->name,"nowrap");
   $zones_table->addRowField($zone_obj->getAppliances("&nbsp;",TRUE,FALSE),"nowrap");
   $zones_table->addRowField($zone_obj->description,"truncate-ellipsis");
