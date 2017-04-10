@@ -10,7 +10,6 @@
 // include classes
 require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocation.class.php");
 require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocationZone.class.php");
-require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocationZoneAppliance.class.php");
 
 /**
  * Air Conditioning - Locations

@@ -84,12 +84,9 @@ class cAirConditioningLocationZone{
  /**
   * Build Appliance
   *
-  * @param stroing $appliance Appliance
-  * @param boolean $showIcon Show icon
-  * @param boolean $showText Show text
-  * @return string Appliance text and icon
+  * @return object Appliance object
   */
- public function buildAppliance($appliance,$showIcon=TRUE,$showText=TRUE){
+ private function buildAppliance($appliance){
   // definitions
   $return=new stdClass();
   // switch gender
@@ -121,7 +118,7 @@ class cAirConditioningLocationZone{
   foreach($this->appliances_array as $appliance_obj){
    if($showIcon){
     if($showText){
-     $appliances_array[]=$appliance_obj->full;
+     $appliances_array[]=$appliance_obj->appliance;
     }else{
      $appliances_array[]=$appliance_obj->icon;
     }
