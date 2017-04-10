@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<locale>
+
+ <!-- air-conditioning -->
+ <text key="air-conditioning">Climatizzazione</text>
+ <text key="air-conditioning-description">Climatizzazione ambientale</text>
+
+ <!-- alerts -->
+ <text key="air-conditioning_alert_locationError">Si è verificato un errore durante il salvaraggio della location</text>
+ <text key="air-conditioning_alert_locationNotFound">La location non è stata trovata</text>
+ <text key="air-conditioning_alert_locationCreated">La location è stata creata</text>
+ <text key="air-conditioning_alert_locationUpdated">La location è stata aggiornata</text>
+ <text key="air-conditioning_alert_locationDeleted">La location è stata eliminata</text>
+ <text key="air-conditioning_alert_locationUndeleted">La location è stata ripristinata</text>
+ <text key="air-conditioning_alert_locationRemoved">La location è stata rimossa</text>
+
+ <!-- navigation -->
+ <text key="nav-locations-add">Aggiungi location</text>
+ <text key="nav-locations-operations-edit">Modifica location</text>
+ <text key="nav-locations-operations-zone_add">Aggiungi zona</text>
+ <text key="nav-locations-operations-undelete">Ripristina location</text>
+ <text key="nav-locations-operations-undelete-confirm">Confermi di voler ripristinare questa location?</text>
+ <text key="nav-locations-operations-remove">Rimuovi location</text>
+ <text key="nav-locations-operations-remove-confirm">Confermi di voler rimuovere definitivamente questa location?</text>
+
+ <!-- appliances -->
+ <text key="appliance-heater">Riscaldamento</text>
+ <text key="appliance-cooler">Condizionatore</text>
+ <text key="appliance-humidifier">Umidificatore</text>
+ <text key="appliance-dehumidifier">Deumidificatore</text>
+
+ <!-- dashboard -->
+ <text key="dashboard-location-detection"><![CDATA[{0}]]>°C (<![CDATA[{1}]]>%)</text>
+ <text key="dashboard-location-detection_offline">Offline</text>
+ <text key="dashboard-manage">Amministrazione</text>
+ <text key="dashboard-manage-description">Gestione locations, zone e apparecchi</text>
+
+ <!-- locations_list -->
+ <text key="locations_list">Locations</text>
+ <text key="locations_list-tr-unvalued">Non sono presenti locations da mostrare..</text>
+ <text key="locations_list-th-name">Location</text>
+ <text key="locations_list-th-description">Descrizione</text>
+ <text key="locations_list-td-view">Visualizza location</text>
+ <text key="locations_list-td-edit">Modifica location</text>
+ <text key="locations_list-td-delete">Elimina location</text>
+ <text key="locations_list-td-delete-confirm">Confermi di voler eliminare questa location?</text>
+ <text key="locations_list-td-undelete">Rispristina location</text>
+ <text key="locations_list-td-undelete-confirm">Confermi di voler ripristinare questa location?</text>
+
+ <!-- locations_view -->
+ <text key="locations_view">Location</text>
+ <text key="locations_view-deleted-alert">Attenzione, questa location è stata eliminata</text>
+ <text key="locations_view-dt-name">Location</text>
+ <text key="locations_view-dt-description">Descrizione</text>
+ <text key="locations_view-dt-zones">Zone</text>
+ <text key="locations_view-zones-tr-unvalued">Non sono presenti zone da mostrare..</text>
+ <text key="locations_view-zones-td-edit">Modifica zona</text>
+ <text key="locations_view-zones-td-move-up">Sposta in alto</text>
+ <text key="locations_view-zones-td-move-down">Sposta in basso</text>
+ <text key="locations_view-zones-td-delete">Elimina zona</text>
+ <text key="locations_view-zones-td-delete-confirm">Confermi di voler eliminare questa zona?</text>
+
+ <text key="locations_view-zone_info-dt-description">Descrizione</text>
+ <text key="locations_view-zone_info-dt-token">Token</text>
+ <text key="locations_view-zone_info-dt-appliances">Apparecchi</text>
+
+ <!-- locations_edit -->
+ <text key="locations_edit">Modifica location</text>
+ <text key="locations_edit-add">Nuova location</text>
+ <text key="locations_edit-ff-name">Location</text>
+ <text key="locations_edit-ff-name-placeholder">Nome della location</text>
+ <text key="locations_edit-ff-description">Descrizione</text>
+ <text key="locations_edit-ff-description-placeholder">Descrizione della location</text>
+ <text key="locations_edit-fc-delete-confirm">Confermi di voler contrassegnare come eliminata questa location?</text>
+
+  <!-- locations_zones_edit -->
+ <text key="locations_zones_edit">Modifica zona</text>
+ <text key="locations_zones_edit-add">Aggiungi zona</text>
+ <text key="locations_zones_edit-ff-location">Location</text>
+ <text key="locations_zones_edit-ff-token">Token</text>
+ <text key="locations_zones_edit-fo-token-new">Genera un nuovo token per il dispositivo</text>
+ <text key="locations_zones_edit-ff-name">Zona</text>
+ <text key="locations_zones_edit-ff-name-placeholder">Nome della zona</text>
+ <text key="locations_zones_edit-ff-description">Descrizione</text>
+ <text key="locations_zones_edit-ff-description-placeholder">Descrizione della zona</text>
+ <text key="locations_zones_edit-ff-appliance-placeholder">Seleziona il relé a cui è collegato questo apparecchio..</text>
+ <text key="locations_zones_edit-fo-relay">Relé <![CDATA[{0}]]></text>
+ <text key="locations_zones_edit-fc-delete-confirm">Confermi di voler contrassegnare come eliminata questa zona?</text>
+
+</locale>
