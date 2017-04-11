@@ -34,32 +34,32 @@ function location_save(){
  // debug
  api_dump($location_obj,"location object");
  // build location query objects
- $zone_qobj=new stdClass();
- $zone_qobj->id=$location_obj->id;
- $zone_qobj->name=addslashes($_REQUEST['name']);
- $zone_qobj->description=addslashes($_REQUEST['description']);
+ $location_qobj=new stdClass();
+ $location_qobj->id=$location_obj->id;
+ $location_qobj->name=addslashes($_REQUEST['name']);
+ $location_qobj->description=addslashes($_REQUEST['description']);
  // check location
  if($location_obj->id){
   // update location
-  $zone_qobj->updTimestamp=time();
-  $zone_qobj->updFkUser=$location_obj->id;
+  $location_qobj->updTimestamp=time();
+  $location_qobj->updFkUser=$location_obj->id;
   // debug
-  api_dump($zone_qobj,"location query object");
+  api_dump($location_qobj,"location query object");
   // execute query
-  $GLOBALS['database']->queryUpdate("air-conditioning_locations",$zone_qobj);
+  $GLOBALS['database']->queryUpdate("air-conditioning_locations",$location_qobj);
   api_alerts_add(api_text("air-conditioning_alert_locationUpdated"),"success");
  }else{
   // insert location
-  $zone_qobj->addTimestamp=time();
-  $zone_qobj->addFkUser=$location_obj->id;
+  $location_qobj->addTimestamp=time();
+  $location_qobj->addFkUser=$location_obj->id;
   // debug
-  api_dump($zone_qobj,"location query object");
+  api_dump($location_qobj,"location query object");
   // execute query
-  $zone_qobj->id=$GLOBALS['database']->queryInsert("air-conditioning_locations",$zone_qobj);
+  $location_qobj->id=$GLOBALS['database']->queryInsert("air-conditioning_locations",$location_qobj);
   api_alerts_add(api_text("air-conditioning_alert_locationCreated"),"success");
  }
  // redirect
- api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$zone_qobj->id);
+ api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_qobj->id);
 }
 /**
  * Location Deleted
@@ -72,21 +72,21 @@ function location_deleted($deleted){
  // check
  if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
  // build location query objects
- $zone_qobj=new stdClass();
- $zone_qobj->id=$location_obj->id;
- $zone_qobj->deleted=($deleted?1:0);
- $zone_qobj->updTimestamp=time();
- $zone_qobj->updFkUser=$location_obj->id;
+ $location_qobj=new stdClass();
+ $location_qobj->id=$location_obj->id;
+ $location_qobj->deleted=($deleted?1:0);
+ $location_qobj->updTimestamp=time();
+ $location_qobj->updFkUser=$location_obj->id;
  // debug
  api_dump($_REQUEST);
- api_dump($zone_qobj);
+ api_dump($location_qobj);
  // update location
- $GLOBALS['database']->queryUpdate("air-conditioning_locations",$zone_qobj);
+ $GLOBALS['database']->queryUpdate("air-conditioning_locations",$location_qobj);
  // alert
  if($deleted){api_alerts_add(api_text("air-conditioning_alert_locationDeleted"),"warning");}
  else{api_alerts_add(api_text("air-conditioning_alert_locationUndeleted"),"success");}
  // redirect
- api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id);
+ api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);
 }
 /**
  * Location Remove
@@ -99,8 +99,6 @@ function location_remove(){
  // debug
  api_dump($_REQUEST,"_REQUEST");
  api_dump($location_obj,"location_obj");
- // delete zones /** @todo non serve ma per completezza si potrebbe fare sia zones che appliances */
- /*$GLOBALS['database']->queryExecute("DELETE FROM `air-conditioning_locations_join_groups` WHERE `fkLocation`='".$location_obj->id."' AND `fkGroup`='".$_REQUEST['idGroup']."'");*/
  // delete location
  $GLOBALS['database']->queryDelete("air-conditioning_locations",$location_obj->id);
  // redirect
@@ -154,7 +152,7 @@ function location_zone_save(){
   api_alerts_add(api_text("air-conditioning_alert_locationZoneCreated"),"success");
  }
  // redirect
- api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$zone_qobj->id);
+ api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id."&idZone=".$zone_qobj->id);
 }
 /**
  * Zone Move
@@ -167,7 +165,7 @@ function location_zone_move($direction){
  $zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
  // check objects
  if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
- if(!$zone_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id);}
+ if(!$zone_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);}
  // check parameters
  if(!in_array(strtolower($direction),array("up","down"))){api_alerts_add(api_text("dashboard_alert_zoneError"),"warning");api_redirect("?mod=dashboard&scr=dashboard_customize&idTile=".$zone_obj->id);}
  // build zone query objects
@@ -204,7 +202,7 @@ function location_zone_move($direction){
  api_dump($zone_obj,"zone_obj");
  api_dump($zone_qobj,"zone_qobj");
  // redirect
- api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$zone_obj->id);
+ api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id."&idZone=".$zone_obj->id);
 }
 /**
  * Location Zone Delete
@@ -215,7 +213,7 @@ function location_zone_delete(){
  $zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
  // check objects
  if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
- if(!$zone_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id);}
+ if(!$zone_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);}
  // debug
  api_dump($_REQUEST,"_REQUEST");
  api_dump($zone_obj,"zone_obj");
@@ -223,7 +221,7 @@ function location_zone_delete(){
  $GLOBALS['database']->queryDelete("air-conditioning_locations_zones",$zone_obj->id);
  // redirect
  api_alerts_add(api_text("air-conditioning_alert_locationRemoved"),"warning");
- api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id);
+ api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);
 }
 
 ?>

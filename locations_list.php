@@ -28,7 +28,7 @@
   if($location_obj->deleted){$tr_class="deleted";}else{$tr_class=NULL;}
   // make location row
   $table->addRow($tr_class);
-  $table->addRowField(api_link("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id,api_icon("fa-search",NULL,"hidden-link"),api_text("locations_list-td-view")));
+  $table->addRowField(api_link("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id,api_icon("fa-search",NULL,"hidden-link"),api_text("locations_list-td-view")));
   $table->addRowField($location_obj->name,"nowrap");
   $table->addRowField($location_obj->description,"truncate-ellipsis");
   $table->addRowField($ob->render(),"text-right");

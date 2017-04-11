@@ -48,22 +48,22 @@
  <text key="locations_list-td-undelete">Rispristina location</text>
  <text key="locations_list-td-undelete-confirm">Confermi di voler ripristinare questa location?</text>
 
- <!-- locations_view -->
- <text key="locations_view">Location</text>
- <text key="locations_view-deleted-alert">Attenzione, questa location è stata eliminata</text>
- <text key="locations_view-dt-name">Location</text>
- <text key="locations_view-dt-description">Descrizione</text>
- <text key="locations_view-dt-zones">Zone</text>
- <text key="locations_view-zones-tr-unvalued">Non sono presenti zone da mostrare..</text>
- <text key="locations_view-zones-td-edit">Modifica zona</text>
- <text key="locations_view-zones-td-move-up">Sposta in alto</text>
- <text key="locations_view-zones-td-move-down">Sposta in basso</text>
- <text key="locations_view-zones-td-delete">Elimina zona</text>
- <text key="locations_view-zones-td-delete-confirm">Confermi di voler eliminare questa zona?</text>
+ <!-- locations_manage -->
+ <text key="locations_manage">Gestione location</text>
+ <text key="locations_manage-deleted-alert">Attenzione, questa location è stata eliminata</text>
+ <text key="locations_manage-dt-name">Location</text>
+ <text key="locations_manage-dt-description">Descrizione</text>
+ <text key="locations_manage-dt-zones">Zone</text>
+ <text key="locations_manage-zones-tr-unvalued">Non sono presenti zone da mostrare..</text>
+ <text key="locations_manage-zones-td-edit">Modifica zona</text>
+ <text key="locations_manage-zones-td-move-up">Sposta in alto</text>
+ <text key="locations_manage-zones-td-move-down">Sposta in basso</text>
+ <text key="locations_manage-zones-td-delete">Elimina zona</text>
+ <text key="locations_manage-zones-td-delete-confirm">Confermi di voler eliminare questa zona?</text>
 
- <text key="locations_view-zone_info-dt-description">Descrizione</text>
- <text key="locations_view-zone_info-dt-token">Token</text>
- <text key="locations_view-zone_info-dt-appliances">Apparecchi</text>
+ <text key="locations_manage-zone_info-dt-description">Descrizione</text>
+ <text key="locations_manage-zone_info-dt-token">Token</text>
+ <text key="locations_manage-zone_info-dt-appliances">Apparecchi</text>
 
  <!-- locations_edit -->
  <text key="locations_edit">Modifica location</text>

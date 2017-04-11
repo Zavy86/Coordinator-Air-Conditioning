@@ -20,7 +20,7 @@
  // controls
  $form->addControl("submit",api_text("form-fc-submit"));
  if($location_obj->id){
-  $form->addControl("button",api_text("form-fc-cancel"),"?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id);
+  $form->addControl("button",api_text("form-fc-cancel"),"?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);
   if(!$location_obj->deleted){$form->addControl("button",api_text("form-fc-delete"),"?mod=air-conditioning&scr=submit&act=location_delete&idLocation=".$location_obj->id,"btn-danger",api_text("locations_edit-fc-delete-confirm"));}
   else{
    $form->addControl("button",api_text("form-fc-undelete"),"?mod=air-conditioning&scr=submit&act=location_undelete&idLocation=".$location_obj->id,"btn-warning");

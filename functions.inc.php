@@ -47,23 +47,4 @@ function api_airConditioning_availableAppliances(){
  return $appliances_array;
 }
 
-/**
- * Air Conditioning - Appliance relay
- *
- * @return integer Appliance relay
- */
-function api_airConditioning_applianceRelay($appliance,$appliances_array){
- // check parameters
- if(!$appliance or !is_array($appliances_array)){return NULL;}
- // cycle all appliances
- foreach($appliances_array as $appliance_obj){
-  if($appliance_obj->appliance==$appliance){
-   // return array
-   return $appliance_obj->relay;
-  }
- }
- // appliance not found in array
- return NULL;
-}
-
 ?>
