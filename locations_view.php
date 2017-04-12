@@ -46,12 +46,10 @@
 
   $zone_panel_body=api_tag("center",api_tag("h3",$zone_panel_body));
 
+  $trend_array=$zone_obj->getTrend();
+  if(!is_array($trend_array)){$trend_array=array();}
 
-  $line_data=NULL;
-  $detections=$zone_obj->getDetections(48);
-  foreach($detections as $detection){$line_data.=",".round($detection->temperature,1);}
-
-  $zone_panel_body.=api_tag("span",substr($line_data,1),"peity-line");
+  $zone_panel_body.=api_tag("span",implode(",",$trend_array),"peity-line");
 
   $html->addScript("$(\"span.peity-line\").peity(\"line\",{width:'100%',height:30,stroke:'#337AB7'});");
 
@@ -101,9 +99,12 @@
   $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/25","peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));
   $html->addScript("$(\"span.peity-pie\").peity(\"pie\",{width:'50%',innerRadius:25,radius:50,fill:['#518DC1','#C6D9FD']});");
 
+  $trend_array=$selected_zone_obj->getTrend();
+  if(!is_array($trend_array)){$trend_array=array();}
+
   // build XX panel
   $trend_panel=new cPanel("Ultime 24 ore");
-  $trend_panel->SetBody(api_tag("span","19.5,19,18.5,18,17.5,18,18.5,18,17.5,17,16,17,18,19,20,21,22,21,20,19,18,18.5,19","peity-trend"));
+  $trend_panel->SetBody(api_tag("span",implode(",",$trend_array),"peity-trend"));
   $html->addScript("$(\"span.peity-trend\").peity(\"bar\",{width:'100%',height:80,fill:['#518DC1']});");
 
   $grid->addCol($planning_panel->render().$sensors_panel->render().$trend_panel->render(),"col-xs-12 col-sm-5");
