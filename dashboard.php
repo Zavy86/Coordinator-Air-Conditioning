@@ -25,7 +25,7 @@
    }
    $location_zones.="<br>".$zone_obj->name.": ".$detection;
   }
-  $dashboard->addTile("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id,$location_obj->name,substr($location_zones,4),TRUE,"1x1","fa-thermometer-three-quarters");
+  $dashboard->addTile("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id,$location_obj->name,substr($location_zones,4),TRUE,"1x1","fa-thermometer-three-quarters");
  }
  // manage locations
  $dashboard->addTile("?mod=air-conditioning&scr=locations_list",api_text("dashboard-manage"),api_text("dashboard-manage-description"),(api_checkAuthorization(MODULE,"air-conditioning-manage")),"1x1","fa-bars");

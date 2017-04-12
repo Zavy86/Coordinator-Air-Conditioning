@@ -48,9 +48,16 @@
  <text key="locations_list-td-undelete">Rispristina location</text>
  <text key="locations_list-td-undelete-confirm">Confermi di voler ripristinare questa location?</text>
 
+ <!-- locations_view -->
+ <text key="locations_view">Location</text>
+ <text key="locations_view-panel-offline">Offline</text>
+ <text key="locations_view-dt-name">Location</text>
+ <text key="locations_view-dt-description">Descrizione</text>
+
+ <text key="locations_view-last_synchronization">Ultima sincronizzazione: {0} fa</text>
+
  <!-- locations_manage -->
  <text key="locations_manage">Gestione location</text>
- <text key="locations_manage-deleted-alert">Attenzione, questa location è stata eliminata</text>
  <text key="locations_manage-dt-name">Location</text>
  <text key="locations_manage-dt-description">Descrizione</text>
  <text key="locations_manage-dt-zones">Zone</text>

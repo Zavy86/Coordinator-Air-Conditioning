@@ -23,6 +23,12 @@
  if(substr(SCRIPT,0,9)=="locations"){
   // lists
   $nav->addItem(api_text("locations_list"),"?mod=air-conditioning&scr=locations_list");
+
+  // selected location /** @todo integrare bene */
+  if($location_obj->id && SCRIPT=="locations_view"){
+   $nav->addItem($location_obj->name,NULL,NULL,"active");
+  }
+
   // locations view or edit
   if(in_array(SCRIPT,array("locations_manage","locations_edit","locations_zones_edit")) && $location_obj->id){
    // locations operations

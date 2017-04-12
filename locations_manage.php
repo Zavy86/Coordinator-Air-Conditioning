@@ -1,6 +1,6 @@
 <?php
 /**
- * Air Conditioning - Locations View
+ * Air Conditioning - Locations Manage
  *
  * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
