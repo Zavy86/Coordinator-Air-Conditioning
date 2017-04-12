@@ -23,12 +23,18 @@
  if(substr(SCRIPT,0,9)=="locations"){
   // lists
   $nav->addItem(api_text("locations_list"),"?mod=air-conditioning&scr=locations_list");
+
+  // selected location /** @todo integrare bene */
+  if($location_obj->id && SCRIPT=="locations_view"){
+   $nav->addItem($location_obj->name,NULL,NULL,"active");
+  }
+
   // locations view or edit
-  if(in_array(SCRIPT,array("locations_view","locations_edit","locations_zones_edit")) && $location_obj->id){
+  if(in_array(SCRIPT,array("locations_manage","locations_edit","locations_zones_edit")) && $location_obj->id){
    // locations operations
    $nav->addItem(api_text("nav-operations"),NULL,NULL,"active");
    // locations view operations
-   if(SCRIPT=="locations_view"){  /** @todo check authorizations */
+   if(SCRIPT=="locations_manage"){  /** @todo check authorizations */
     // check for deleted
     if($location_obj->deleted){
      $nav->addSubItem(api_text("nav-locations-operations-undelete"),"?mod=air-conditioning&scr=submit&act=location_undelete&idLocation=".$location_obj->id,TRUE,api_text("nav-locations-operations-undelete-confirm"));

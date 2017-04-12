@@ -32,7 +32,7 @@
  }
  // controls
  $form->addControl("submit",api_text("form-fc-submit"));
- $form->addControl("button",api_text("form-fc-cancel"),"?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$zone_obj->id);
+ $form->addControl("button",api_text("form-fc-cancel"),"?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id."&idZone=".$zone_obj->id);
  if($zone_obj->id){$form->addControl("button",api_text("form-fc-delete"),"?mod=air-conditioning&scr=submit&act=location_zone_delete&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,"btn-danger",api_text("locations_zones_edit-fc-delete-confirm"));}
  // build grid object
  $grid=new cGrid();

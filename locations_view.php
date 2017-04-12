@@ -6,10 +6,10 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- $authorization="framework-locations_manage";
  // get objects
  $location_obj=new cAirConditioningLocation($_REQUEST['idLocation']);
  $selected_zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
+ if(!$selected_zone_obj->id){$selected_zone_obj=reset($location_obj->zones_array);}
  // check objects
  if(!$location_obj->id){api_alerts_add(api_text("framework_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
  // include module template
@@ -41,16 +41,51 @@
   $zones_table->addRowField($ob_obj->render(),"text-right");
  }
 
-      // build authorizations table
-      $authorizations_table=new cTable(api_text("locations_view-zones-tr-unvalued"));
-      // cycle location authorizations
-      foreach($location_obj->zones_array as $zone_obj){
-       // add authorization row
-       $authorizations_table->addRow();
-       $authorizations_table->addRowField($zone_obj->name,"nowrap");
-       $authorizations_table->addRowField($zone_obj->name,"nowrap");
-       $authorizations_table->addRowFieldAction("#",api_icon("fa-trash",api_text("locations_view-authorizations-td-delete"),"hidden-link"),TRUE,api_text("locations_view-authorizations-td-delete-confirm"));
-      }
+ // definitions
+ $zone_panels_array=array();
+
+
+ // build zone panel
+ $zone_panel=new cPanel($location_obj->name,"panel-primary");
+ $zone_panel->SetBody($location_obj->description);
+
+ $zone_panels_array[]=$zone_panel;
+
+
+
+
+ foreach($location_obj->zones_array as $zone_obj){
+
+  $zone_panel_body=NULL;
+
+  $last_detection=$zone_obj->getDetections(1)[0];
+  // che if last detection is not oldest than 15 minutes
+  if((time()-$last_detection->timestamp)<900){
+   $zone_panel_body=api_icon("fa-thermometer-three-quarters")."&nbsp;".round($last_detection->temperature,1)."°C&nbsp;&nbsp;".api_icon("fa-tint")."&nbsp;".round($last_detection->humidity)."%";
+  }else{
+   $zone_panel_body=api_text("locations_view-panel-offline");
+  }
+
+  $zone_panel_body=api_tag("center",api_tag("h3",$zone_panel_body));
+
+
+  $line_data=NULL;
+  $detections=$zone_obj->getDetections(48);
+  foreach($detections as $detection){$line_data.=",".round($detection->temperature,1);}
+
+  $zone_panel_body.=api_tag("span",substr($line_data,1),"peity-line");
+
+  $html->addScript("$(\"span.peity-line\").peity(\"line\",{width:'100%',height:30,stroke:'#337AB7'});");
+
+  $panel_link=api_link("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,api_icon("fa-arrow-circle-o-right",NULL,"hidden-link"));
+  if($zone_obj->id==$selected_zone_obj->id){$panel_link=NULL;}
+
+  // build zone panel
+  $zone_panel=new cPanel($zone_obj->name." ".api_tag("span",$panel_link,"pull-right"),($zone_obj->id==$selected_zone_obj->id?"panel-primary":NULL));
+  $zone_panel->SetBody($zone_panel_body);
+
+  $zone_panels_array[]=$zone_panel;
+ }
 
  // build left location description list
  $dl_left=new cDescriptionList("br","dl-horizontal");
@@ -61,28 +96,48 @@
  $dl_right=new cDescriptionList("br","dl-horizontal");
  $dl_right->addElement(api_text("locations_view-dt-zones"),$zones_table->render());
 
-      //$dl_right->addElement(api_text("locations_view-dt-authorizations"),$authorizations_table->render());
 
- // check for action
- if(ACTION=="zone_info"){
-  // build zone info description list
-  $zone_info_dl=new cDescriptionList("br","dl-horizontal");
-  if($selected_zone_obj->description){$zone_info_dl->addElement(api_text("locations_view-zone_info-dt-description"),$selected_zone_obj->description);}
-  $zone_info_dl->addElement(api_text("locations_view-zone_info-dt-token"),$selected_zone_obj->token);
-  if(count($selected_zone_obj->appliances_array)){$zone_info_dl->addElement(api_text("locations_view-zone_info-dt-appliances"),$selected_zone_obj->getAppliances("<br>"));}
-  // build zone info modal window
-  $zone_info_modal=new cModal($selected_zone_obj->name,NULL,"locations_view-zone_info_modal");
-  $zone_info_modal->setBody($zone_info_dl->render());
-  // add modal to html object
-  $html->addModal($zone_info_modal);
-  // jQuery scripts
-  $html->addScript("/* Modal window opener */\n$(function(){\$(\"#modal_locations_view-zone_info_modal\").modal('show');});");
- }
+
  // build grid object
  $grid=new cGrid();
  $grid->addRow();
- $grid->addCol($dl_left->render(),"col-xs-12 col-sm-4");
- $grid->addCol($dl_right->render(),"col-xs-12 col-sm-8");
+ //$grid->addCol($dl_left->render(),"col-xs-12");
+ //$grid->addCol($dl_right->render(),"col-xs-12 col-sm-8");
+
+ foreach($zone_panels_array as $index=>$zone_panel){$a.=$zone_panel->render();}
+
+ $grid->addCol($a,"col-xs-12 col-sm-3");
+
+
+ // selected zone
+
+ $last_detection=$selected_zone_obj->getDetections(1)[0];
+
+ // build XX panel
+ $zone_panel=new cPanel($selected_zone_obj->name);
+ $zone_panel->SetBody(api_text("locations_view-last_synchronization",api_timestampDifferenceFormat(time()-$last_detection->timestamp,FALSE)));
+
+ // build XX panel
+ $notifications_panel=new cPanel("Registro eventi");
+ $notifications_panel->SetBody("2017-01-01 21:01 Sistema offline<br>2017-01-01 20:50 Riscaldamento acceso<br>2017-01-01 18:25 Riscaldamento spento");
+
+ // build XX panel
+ $planning_panel=new cPanel("Planning attuale");
+ $planning_panel->SetBody("<div class=\"progress\"><div class=\"progress-bar progress-bar-striped\" role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 45%\"><span class=\"sr-only\">45% Complete</span></div></div>");
+
+ // build XX panel
+ $sensors_panel=new cPanel("Rilevazione");
+ $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/25","peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));
+ $html->addScript("$(\"span.peity-pie\").peity(\"pie\",{width:'50%',height:125,fill:['#518DC1','#C6D9FD'],innerRadius:25});");
+
+ // build XX panel
+ $trend_panel=new cPanel("Ultime 24 ore");
+ $trend_panel->SetBody(api_tag("span","19.5,19,18.5,18,17.5,18,18.5,18,17.5,17,16,17,18,19,20,21,22,21,20,19,18,18.5,19","peity-trend"));
+ $html->addScript("$(\"span.peity-trend\").peity(\"bar\",{width:'100%',height:80,fill:['#518DC1']});");
+
+ $grid->addCol($planning_panel->render().$sensors_panel->render().$trend_panel->render(),"col-xs-12 col-sm-5");
+ $grid->addCol($zone_panel->render().$notifications_panel->render(),"col-xs-12 col-sm-4");
+
  // add content to html
  $html->addContent($grid->render());
  // renderize html page
