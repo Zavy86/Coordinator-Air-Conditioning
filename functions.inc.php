@@ -9,6 +9,7 @@
 
 // include classes
 require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocation.class.php");
+require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocationModality.class.php");
 require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocationZone.class.php");
 require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocationZoneDetection.class.php");
 
