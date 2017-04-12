@@ -131,6 +131,43 @@ class cAirConditioningLocationZone{
  }
 
  /**
+  * Get Trend
+  *
+  * @return array Last 24 hours trend
+  */
+ public function getTrend(){
+  // definitions
+  $now=time();
+  $timestamps_array=array();
+  $detections_avg_array=array();
+  // build last 24 hours array
+  for($h=0;$h<24;$h++){
+   $timestamp=new stdClass();
+   $timestamp->from=api_timestampDifferenceFrom($now,"-".($h+1)." hour");
+   $timestamp->to=api_timestampDifferenceFrom($now,"-".($h)." hour");
+   $timestamps_array[]=$timestamp;
+  }
+  // cycle all hours
+  foreach(array_reverse($timestamps_array) as $timestamp){
+   // definitions
+   $detections_array=array();
+   // make query where
+   $query_where="( `timestamp`>='".$timestamp->from."' AND `timestamp`<'".$timestamp->to."' )";
+   // get detections of this hour
+   $detections_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones_detections` WHERE `fkZone`='".$this->id."' AND ".$query_where." ORDER BY `timestamp` DESC");
+   foreach($detections_results as $detection){$detections_array[]=new cAirConditioningLocationZoneDetection($detection);}
+   // calculate temperature average for this hour
+   $temperature_sum=0;
+   foreach($detections_array as $detection){$temperature_sum+=$detection->temperature;}
+   if($temperature_sum>0){$temperature_avg=$temperature_sum/count($detections_array);}else{$temperature_avg=0;}
+   // store temperature average
+   $detections_avg_array[]=round($temperature_avg,1);
+  }
+  // return
+  return $detections_avg_array;
+ }
+
+ /**
   * Build Appliance
   *
   * @return object Appliance object
