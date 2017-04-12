@@ -1,7 +1,7 @@
 --
 -- Setup module Air-Conditioning
 --
--- Version 1.0.0
+-- Version 0.0.1
 --
 
 -- --------------------------------------------------------
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `air-conditioning_locations_zones_detections` (
 -- --------------------------------------------------------
 
 --
--- Constraints
+-- Constraints for dumped tables
 --
 
 --

@@ -16,6 +16,7 @@
  <text key="air-conditioning_alert_locationRemoved">La location è stata rimossa</text>
 
  <!-- navigation -->
+ <text key="nav-management">Amministrazione</text>
  <text key="nav-locations-add">Aggiungi location</text>
  <text key="nav-locations-operations-edit">Modifica location</text>
  <text key="nav-locations-operations-zone_add">Aggiungi zona</text>
@@ -50,9 +51,26 @@
 
  <!-- locations_view -->
  <text key="locations_view">Location</text>
+
+ <text key="locations_view-panel-modalities">Gestione modalità</text>
  <text key="locations_view-panel-offline">Offline</text>
- <text key="locations_view-dt-name">Location</text>
- <text key="locations_view-dt-description">Descrizione</text>
+
+ <text key="locations_view-modalities-modal-title">{0} - Modalità</text>
+ <text key="locations_view-modalities-modal-title-add">{0} - Aggiungi modalità</text>
+ <text key="locations_view-modalities-modal-title-edit">{0} - Modifica modalità</text>
+
+ <text key="locations_view-modalities-th-temperature">Temp.</text>
+ <text key="locations_view-modalities-th-modality">Modalità</text>
+ <text key="locations_view-modalities-td-add">Aggiungi nuova modalità</text>
+ <text key="locations_view-modalities-td-edit">Modifica modalità</text>
+
+ <text key="locations_view-modalities-ff-name">Modalità</text>
+ <text key="locations_view-modalities-ff-name-placeholder">Nome della modalità</text>
+ <text key="locations_view-modalities-ff-temperature">Temperatura</text>
+ <text key="locations_view-modalities-ff-temperature-placeholder">Temperatura da mantenere</text>
+ <text key="locations_view-modalities-ff-color">Colore</text>
+ <text key="locations_view-modalities-ff-color-placeholder">Seleziona un colore per distinguere la modalità</text>
+ <text key="locations_view-modalities-fc-delete-confirm">Confermi di voler eliminare questa modalità?</text>
 
  <text key="locations_view-last_synchronization">Ultima sincronizzazione: {0} fa</text>
 

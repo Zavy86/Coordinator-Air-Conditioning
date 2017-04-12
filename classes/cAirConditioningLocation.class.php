@@ -21,6 +21,7 @@ class cAirConditioningLocation{
  protected $updTimestamp;
  protected $updFkUser;
  protected $deleted;
+ protected $modalities_array;
  protected $zones_array;
 
  /**
@@ -49,6 +50,10 @@ class cAirConditioningLocation{
   $this->updTimestamp=(int)$location->updTimestamp;
   $this->updFkUser=(int)$location->updFkUser;
   $this->deleted=(int)$location->deleted;
+  // get modalities
+  $this->modalities_array=array();
+  $modalities_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_modalities` WHERE `fkLocation`='".$this->id."' ORDER BY `temperature`");
+  foreach($modalities_results as $modality){$this->modalities_array[$modality->id]=new cAirConditioningLocationModality($modality);}
   // get zones
   $this->zones_array=array();
   $zones_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones` WHERE `fkLocation`='".$this->id."' ORDER BY `order`");
