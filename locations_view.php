@@ -96,7 +96,7 @@
   // build XX panel
   $planning_panel=new cPanel("Planning odierno");
   $planning_panel->SetBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],strtolower(date("l")))->render());
-  
+
   // build XX panel
   $sensors_panel=new cPanel("Rilevazione");
   $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/25","peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));

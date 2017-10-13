@@ -174,6 +174,29 @@ class cAirConditioningLocationZone{
  }
 
  /**
+  * Get Current Step
+  *
+  * @return object Current Step
+  */
+ public function getCurrentStep(){
+  // make time
+  $time_array=explode(":",date("H:i"));
+  $time=(($time_array[0]*3600)+($time_array[1]*60));
+  // cycle all current day step
+  foreach($this->plannings[strtolower(date("l"))] as $step){
+   // check if time now is beetwen step times
+   if($time>=$step->time_start && $time<=$step->time_end){$current_step=$step;}
+  }
+  // debug
+  api_dump(date("H:i")." -> ".$time,"current_time");
+  api_dump($current_step,"current_step");
+  // check step
+  if(!$current_step->fkModality){return false;}
+  // return
+  return $current_step;
+ }
+
+ /**
   * Build Appliance
   *
   * @return object Appliance object
