@@ -28,6 +28,8 @@ class cAirConditioningLocationZone{
  protected $updTimestamp;
  protected $updFkUser;
 
+ protected $plannings;
+
  protected $appliances_array;
 
  /**
@@ -58,17 +60,21 @@ class cAirConditioningLocationZone{
   $this->cooler_relay=(int)$zone->cooler_relay;
   $this->dehumidifier_relay=(int)$zone->dehumidifier_relay;
   $this->humidifier_relay=(int)$zone->humidifier_relay;
-
   $this->addTimestamp=(int)$zone->addTimestamp;
   $this->addFkUser=(int)$zone->addFkUser;
   $this->updTimestamp=(int)$zone->updTimestamp;
   $this->updFkUser=(int)$zone->updFkUser;
+  // decode plannings
+  $this->plannings=json_decode($zone->plannings,true);
+  // convert steps to objects
+  foreach($this->plannings as $day=>$planning){foreach($planning as $id=>$step){$this->plannings[$day][$id]=(object)$step;}}
   // set appliances
   $this->appliances_array=array();
   if($this->heater_relay){$this->appliances_array['heater']=$this->buildAppliance("heater");}
   if($this->cooler_relay){$this->appliances_array['cooler']=$this->buildAppliance("cooler");}
   if($this->dehumidifier_relay){$this->appliances_array['dehumidifier']=$this->buildAppliance("dehumidifier");}
   if($this->humidifier_relay){$this->appliances_array['humidifier']=$this->buildAppliance("humidifier");}
+  // return
   return TRUE;
  }
 
