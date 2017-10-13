@@ -55,6 +55,9 @@
   $nav->addItem(api_text("nav-management"));
   $nav->addSubItem(api_text("locations_list"),"?mod=air-conditioning&scr=locations_list");
   $nav->addSubItem(api_text("nav-locations-add"),"?mod=air-conditioning&scr=locations_edit");
+
+  /** @todo impostazioni per temperatura minima (forse pero è meglio per zona) */
+
  }
 
  // add nav to html
