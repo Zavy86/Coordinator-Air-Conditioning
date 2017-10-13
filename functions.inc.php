@@ -58,7 +58,7 @@ function api_airConditioning_availableAppliances(){
  */
 function api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$idZone,$day){
  // build progress bar object
- $progressBar=new cProgressBar();
+ $progressBar=new cProgressBar(null,"margin-bottom:0px;");
  // cycle all day planning steps
  if(is_array($location_obj->zones_array[$idZone]->plannings[$day])){
   foreach($location_obj->zones_array[$idZone]->plannings[$day] as $step){
