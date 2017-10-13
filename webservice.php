@@ -2,48 +2,57 @@
 /**
  * Framework - Submit
  *
- * @package Coordinator\Modules\Framework
+ * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
 // check for actions
 if(!defined('ACTION')){die("ERROR EXECUTING WEB SERVICE: The action was not defined");}
+
+// errors /** @todo migliorabile */
+function make_error($error_code,$error_name,$error_description=null){
+ // build error object
+ $error_obj=new stdClass();
+ $error_obj->code=$error_code;
+ $error_obj->name=$error_name;
+ $error_obj->description=$error_description;
+ // return error object
+ return $error_obj;
+}
+
+// definitions
+$return=new stdClass();
+$return->ok=false;
+$return->errors=array();
+
 // switch action
 switch(ACTION){
  // zones
- case "zone_upload":zone_upload();break;
- case "zone_download":zone_download();break;
- case "zone_updates":zone_updates();break;
+ case "zone_upload":zone_upload($return);break;
+ case "zone_download":zone_download($return);break;
+ case "zone_updates":zone_updates($return);break;
  // default
  default:
-  // definitions
-  $return=new stdClass();
-  $return->ok=FALSE;
-  $return->errors=array();
-  // build error object
-  $error=new stdClass();
-  $error->code=1;
-  $error->name="Action not found";
-  $error->description="The action \"".ACTION."\" was not found in \"".MODULE."\" web service";
-  // add error to return object
-  $return->errors[]=$error;
-  // encode and return
-  echo json_encode($return);
+  // action not found
+  $return->ok=false;
+  $return->errors[]=make_error(1,"Action not found","The action \"".ACTION."\" was not found in \"".MODULE."\" web service");
 }
+
+// encode and return
+echo json_encode($return);
 
 /**
  * Zone Upload
  */
-function zone_upload(){
- // definitions
- $return=new stdClass();
+function zone_upload($return){
  // get objects
  $zone_obj=new cAirConditioningLocationZone($_REQUEST['token']);
  // check objects
  if(!$zone_obj->id){
   // zone not found
-  $return->ok=FALSE;
-  echo json_encode($return);
+  $return->ok=false;
+  $return->errors[]=make_error(2,"Zone not found","The zone with token ".$_REQUEST['token']." was not found");
+  return $return;
  }
  // acqurie variables
  $r_temperature=$_REQUEST['temperature'];
@@ -51,13 +60,15 @@ function zone_upload(){
  // check parameters
  if(!$r_temperature){
   // temperature not defined
-  $return->ok=FALSE;
-  return json_encode($return);
+  $return->ok=false;
+  $return->errors[]=make_error(3,"Temperature not defined","The temperature is not defined");
+  return $return;
  }
  if(!$r_humidity){
   // humidity not defined
-  $return->ok=FALSE;
-  return json_encode($return);
+  $return->ok=false;
+  $return->errors[]=make_error(3,"Humidity not defined","The humidity is not defined");
+  return $return;
  }
  // build location query objects
  $detection_qobj=new stdClass();
@@ -80,8 +91,9 @@ function zone_upload(){
  // check insert
  if(!$detection_id){
   // error
-  $return->ok=FALSE;
-  return json_encode($return);
+  $return->ok=false;
+  $return->errors[]=make_error(4,"Detection not saved","There was an error while saving the measurement");
+  return $return;
  }
 
  // debug
@@ -92,7 +104,7 @@ function zone_upload(){
 
  // ok
  $return->ok=TRUE;
- return json_encode($return);
+ return $return;
 
 }
 

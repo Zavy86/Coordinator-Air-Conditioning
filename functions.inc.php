@@ -48,4 +48,32 @@ function api_airConditioning_availableAppliances(){
  return $appliances_array;
 }
 
+/**
+ * Build Location Zone Planning Day Progress Bar
+ *
+ * @param object $location_obj Location object
+ * @param integer $idZone Zone ID
+ * @param string $day Planning day
+ * @return object Progress bar
+ */
+function api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$idZone,$day){
+ // build progress bar object
+ $progressBar=new cProgressBar();
+ // cycle all day planning steps
+ if(is_array($location_obj->zones_array[$idZone]->plannings[$day])){
+  foreach($location_obj->zones_array[$idZone]->plannings[$day] as $step){
+   // calculate percentages
+   $step->percentage=round(($step->time_end-$step->time_start)*100/86399,1); // 86400 one day - 1 second
+   // add element to progress bar
+   $progressBar->addElement($step->percentage,gmdate("H:i",$step->time_start),"progress-bar-striped","text-align:left;padding-left:4px;background-color:".($step->fkModality?$location_obj->modalities_array[$step->fkModality]->color:"#cccccc"));
+  }
+ }else{
+  // build empty progress bar
+  $progressBar->addElement(100,null,"progress-bar-striped","background-color:#cccccc");
+  /** @todo verificare forse non serve se le inizializzo bene */
+ }
+ // return progress bar object
+ return $progressBar;
+}
+
 ?>

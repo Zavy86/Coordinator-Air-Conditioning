@@ -25,14 +25,14 @@ class cAirConditioningLocationZoneDetection{
  /**
   * Debug
   *
-  * @return object Air Conditioning Location Zone object
+  * @return object Air Conditioning Location Zone Detection object
   */
  public function debug(){return $this;}
 
  /**
   * Air Conditioning Location Zone class
   *
-  * @param integer $detection Air Conditioning Location Zone object or ID
+  * @param integer $detection Air Conditioning Location Zone Detection object or ID
   * @return boolean
   */
  public function __construct($detection){

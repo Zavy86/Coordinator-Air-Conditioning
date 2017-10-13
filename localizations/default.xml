@@ -15,6 +15,11 @@
  <text key="air-conditioning_alert_locationUndeleted">La location è stata ripristinata</text>
  <text key="air-conditioning_alert_locationRemoved">La location è stata rimossa</text>
 
+ <text key="air-conditioning_alert_locationZoneError">Si è verificato un errore durante il salvaraggio della zona</text>
+ <text key="air-conditioning_alert_locationZoneNotFound">La zona non è stata trovata</text>
+
+ <text key="air-conditioning_alert_locationZonePlanningError">Si è verificato un errore durante il salvataggio della pianificazione</text>
+
  <!-- navigation -->
  <text key="nav-management">Amministrazione</text>
  <text key="nav-locations-add">Aggiungi location</text>
@@ -53,6 +58,7 @@
  <text key="locations_view">Location</text>
 
  <text key="locations_view-panel-modalities">Gestione modalità</text>
+ <text key="locations_view-panel-plannings">Gestione pianificazione</text>
  <text key="locations_view-panel-offline">Offline</text>
 
  <text key="locations_view-modalities-modal-title">{0} - Modalità</text>
@@ -72,7 +78,22 @@
  <text key="locations_view-modalities-ff-color-placeholder">Seleziona un colore per distinguere la modalità</text>
  <text key="locations_view-modalities-fc-delete-confirm">Confermi di voler eliminare questa modalità?</text>
 
- <text key="locations_view-last_synchronization">Ultima sincronizzazione: {0} fa</text>
+ <text key="locations_view-plannings-modal-title">{0} - Pianificazione settimanale</text>
+ <text key="locations_view-plannings-modal-title-edit">{0} - Pianificazione di {1}</text>
+
+ <text key="locations_view-plannings-th-day">Giorno</text>
+ <text key="locations_view-plannings-th-planning">Pianificazione</text>
+ <text key="locations_view-plannings-td-edit">Modifica pianificazione</text>
+
+ <text key="locations_view-plannings-ff-fkModality">Modalità</text>
+ <text key="locations_view-plannings-ff-fkModality-select">Seleziona una modalità..</text>
+ <text key="locations_view-plannings-ff-end">Ora fine step</text>
+ <text key="locations_view-plannings-fc-delete">Elimina ultimo step</text>
+ <text key="locations_view-plannings-fc-delete-confirm">Confermi di voler eliminare l'ultimo step di questa pianificazione?</text>
+
+ <text key="locations_view-last_synchronization">Ultima sincronizzazione: </text>
+ <text key="locations_view-last_synchronization-ago"> fa</text>
+ <text key="locations_view-last_synchronization-never">Mai</text>
 
  <!-- locations_manage -->
  <text key="locations_manage">Gestione location</text>
