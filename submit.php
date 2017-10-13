@@ -23,6 +23,9 @@ switch(ACTION){
  case "location_zone_move_up":location_zone_move("up");break;
  case "location_zone_move_down":location_zone_move("down");break;
  case "location_zone_delete":location_zone_delete();break;
+ // locations zones planning
+ case "location_zone_planning_save":location_zone_planning_save();break;
+ case "location_zone_planning_delete":location_zone_planning_delete();break;
  // default
  default:
   api_alerts_add(api_text("alert_submitFunctionNotFound",array(MODULE,SCRIPT,ACTION)),"danger");
@@ -169,6 +172,8 @@ function location_modality_delete(){
 
  /** @todo check location authorizations */
 
+ /** @todo check if modality is in use */
+
  // debug
  api_dump($_REQUEST,"_REQUEST");
  api_dump($modality_obj,"modality object");
@@ -217,6 +222,7 @@ function location_zone_save(){
   // set insert properties
   $zone_qobj->order=($v_order+1);
   $zone_qobj->token=md5(date("YmdHis").rand(1,99999));
+  $zone_qobj->plannings='{"sunday":[{"time_start":0,"time_end":86399,"fkModality":0}],"monday":[{"time_start":0,"time_end":86399,"fkModality":0}],"tuesday":[{"time_start":0,"time_end":86399,"fkModality":0}],"wednesday":[{"time_start":0,"time_end":86399,"fkModality":0}],"thursday":[{"time_start":0,"time_end":86399,"fkModality":0}],"friday":[{"time_start":0,"time_end":86399,"fkModality":0}],"saturday":[{"time_start":0,"time_end":86399,"fkModality":0}]}';
   $zone_qobj->addTimestamp=time();
   $zone_qobj->addFkUser=$GLOBALS['session']->user->id;
   // debug
@@ -296,6 +302,146 @@ function location_zone_delete(){
  // redirect
  api_alerts_add(api_text("air-conditioning_alert_locationDeleted"),"warning");
  api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);
+}
+
+/**
+ * Location Zone Planning Save
+ */
+function location_zone_planning_save(){
+ // get objects
+ $location_obj=new cAirConditioningLocation($_REQUEST['idLocation']);
+ $zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
+
+ // check objects
+ if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
+ if(!$zone_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);}
+
+ //if(!$planning_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);}
+
+ /** @todo check location authorizations */
+
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+
+ // acquire variables
+ $r_day=$_REQUEST['day'];
+ $r_end=$_REQUEST['end'];
+ $r_fkModality=$_REQUEST['fkModality'];
+
+ // check variables
+ if(!$r_day||!strpos($r_end,":")||!$r_fkModality){api_alerts_add(api_text("air-conditioning_alert_locationZonePlanningError"),"danger");api_redirect("?mod=air-conditioning&scr=locations_view&act=manage_plannings_edit&idLocation=".$location_obj->id."&idZone=".$_REQUEST['idZone']."&idPlanning=".$_REQUEST['idPlanning']."&day=".$_REQUEST['day']);}
+
+ // make time end
+ $v_end_array=explode(":",$r_end);
+ $v_time_end=(($v_end_array[0]*3600)+($v_end_array[1]*60)+59);
+ if($v_time_end>86399){$v_time_end=86399;}
+
+ // cloen days array
+ $days_array=$zone_obj->plannings;
+
+ // get last step of selected day
+ $last_step=end($days_array[$r_day]);
+ //debug
+ api_dump($last_step,"last step");
+
+ // check last step
+ //
+
+ // check if time end is up to time start
+ if($v_time_end<$last_step->time_start){api_alerts_add(api_text("air-conditioning_alert_locationZonePlanningError"),"danger");api_redirect("?mod=air-conditioning&scr=locations_view&act=manage_plannings_edit&idLocation=".$location_obj->id."&idZone=".$_REQUEST['idZone']."&idPlanning=".$_REQUEST['idPlanning']."&day=".$_REQUEST['day']);}
+
+ // update last step of day
+ $last_step->time_end=$v_time_end;
+ $last_step->fkModality=$r_fkModality;
+ //debug
+ api_dump($last_step,"last step updated");
+ // check if time end is lower than 86399 (23:59)
+ if($last_step->time_end<86399){
+  // build step object
+  $step_obj=new stdClass();
+  $step_obj->time_start=$v_time_end+1;
+  $step_obj->time_end=86399;
+  $step_obj->fkModality=0;
+  api_dump($step_obj,"new last step object");
+  // add step object to selected day
+  $days_array[$r_day][]=$step_obj;
+ }
+ //debug
+ api_dump($days_array[$r_day],"days_array ".$r_day);
+ // build location query objects
+ $zone_qobj=new stdClass();
+ $zone_qobj->id=$zone_obj->id;
+ $zone_qobj->plannings=json_encode($days_array);
+ $zone_qobj->updTimestamp=time();
+ $zone_qobj->updFkUser=$GLOBALS['session']->user->id;
+ //debug
+ api_dump($zone_qobj,"zone query object");
+
+ //die();
+
+ // execute query
+ $GLOBALS['database']->queryUpdate("air-conditioning_locations_zones",$zone_qobj);
+ // redirect
+ api_alerts_add(api_text("air-conditioning_alert_locationZonePlanningUpdated"),"success");
+ api_redirect("?mod=air-conditioning&scr=locations_view&act=manage_plannings_edit&idLocation=".$location_obj->id."&idZone=".$_REQUEST['idZone']."&idPlanning=".$_REQUEST['idPlanning']."&day=".$_REQUEST['day']);
+}
+/**
+ * Location Zone Planning Delete
+ */
+function location_zone_planning_delete(){
+ // get objects
+ $location_obj=new cAirConditioningLocation($_REQUEST['idLocation']);
+ $zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
+
+ // check objects
+ if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
+ if(!$zone_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);}
+
+ //if(!$planning_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationZoneNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_manage&idLocation=".$location_obj->id);}
+
+ /** @todo check location authorizations */
+
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ // acquire variables
+ $r_day=$_REQUEST['day'];
+ // cloen days array
+ $days_array=$zone_obj->plannings;
+ // get last step of selected day
+ $last_step=end($days_array[$r_day]);
+ //debug
+ api_dump($last_step,"last step");
+ // check if last step of selected day is defined
+ if($last_step->fkModality){
+  // set last step to not defined
+  $last_step->fkModality=0;
+  //debug
+  api_dump($last_step,"last step updated");
+ }else{
+  // remove last step from selected day (the undefined)
+  array_pop($days_array[$r_day]);
+  // get last step of selected day
+  $last_step=end($days_array[$r_day]);
+  $last_step->time_end=86399;
+  $last_step->fkModality=0;
+  // debug
+  api_dump($last_step,"last step updated");
+ }
+ //debug
+ api_dump($days_array[$r_day],"days_array ".$r_day);
+ // build location query objects
+ $zone_qobj=new stdClass();
+ $zone_qobj->id=$zone_obj->id;
+ $zone_qobj->plannings=json_encode($days_array);
+ $zone_qobj->updTimestamp=time();
+ $zone_qobj->updFkUser=$GLOBALS['session']->user->id;
+ //debug
+ api_dump($zone_qobj,"zone query object");
+ // execute query
+ $GLOBALS['database']->queryUpdate("air-conditioning_locations_zones",$zone_qobj);
+ // redirect
+ api_alerts_add(api_text("air-conditioning_alert_locationZonePlanningUpdated"),"success");
+ api_redirect("?mod=air-conditioning&scr=locations_view&act=manage_plannings_edit&idLocation=".$location_obj->id."&idZone=".$_REQUEST['idZone']."&day=".$_REQUEST['day']);
 }
 
 ?>

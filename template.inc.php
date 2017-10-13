@@ -2,7 +2,7 @@
 /**
  * Framework - Template
  *
- * @package Coordinator\Modules\Settings
+ * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
