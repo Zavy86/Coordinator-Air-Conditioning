@@ -33,7 +33,6 @@ if(ACTION=="manage_plannings"){
 if(ACTION=="manage_plannings_edit"){
  // get steps of selected day
  $days_array=$selected_zone_obj->plannings[$_REQUEST['day']];
- api_dump($days_array);
  // build plannings form
  $plannings_form=new cForm("?mod=air-conditioning&scr=submit&act=location_zone_planning_save&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"POST",NULL,"locations_view_plannings");
  // check if last step of selected day is not defined
@@ -55,7 +54,7 @@ if(ACTION=="manage_plannings_edit"){
  $plannings_modal->setBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],$_REQUEST['day'])->render()."<br>".$plannings_form->render(2));
 
  /** @todo verificare con margnini in api progress bar */
- 
+
  // add modal to html object
  $html->addModal($plannings_modal);
  // jQuery scripts

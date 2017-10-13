@@ -23,6 +23,7 @@
  // location menu
  $location_list=new cList();
  $location_list->addElement(api_link("?mod=air-conditioning&scr=locations_view&act=manage_modalities&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_text("locations_view-panel-modalities")));
+ if($selected_zone_obj->id){$location_list->addElement(api_link("?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_text("locations_view-panel-plannings")));}
 
  // build location panel
  $location_panel=new cPanel($location_obj->name,"panel-primary");
@@ -84,7 +85,9 @@
 
   // build XX panel
   $zone_panel=new cPanel($selected_zone_obj->name);
-  $zone_panel->SetBody(api_text("locations_view-last_synchronization",api_timestampDifferenceFormat(time()-$last_detection->timestamp,FALSE)));
+  if($last_detection->timestamp){$difference=api_timestampDifferenceFormat(time()-$last_detection->timestamp,FALSE).api_text("locations_view-last_synchronization-ago");}
+  else{$difference=api_text("locations_view-last_synchronization-never");}
+  $zone_panel->SetBody(api_text("locations_view-last_synchronization").$difference);
 
   // build XX panel
   $notifications_panel=new cPanel("Registro eventi");
@@ -92,8 +95,8 @@
 
   // build XX panel
   $planning_panel=new cPanel("Planning odierno");
-  $planning_panel->SetBody("<div class=\"progress\"><div class=\"progress-bar progress-bar-striped\" role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 45%\"><span class=\"sr-only\">45% Complete</span></div></div>");
-
+  $planning_panel->SetBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],strtolower(date("l")))->render());
+  
   // build XX panel
   $sensors_panel=new cPanel("Rilevazione");
   $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/25","peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));
@@ -116,6 +119,7 @@
 
  // include modal windows
  require_once("locations_view_modal_modalities.inc.php");
+ require_once("locations_view_modal_plannings.inc.php");
 
  // renderize html page
  $html->render();
