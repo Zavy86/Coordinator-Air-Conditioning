@@ -119,30 +119,17 @@ function zone_getTemperatureSetpoint($return){
  }
  // debug
  api_dump($_REQUEST,"_REQUEST");
- api_dump($zone_obj->plannings[strtolower(date("l"))]);
- // make time
- $time_array=explode(":",date("H:i"));
- $time=(($time_array[0]*3600)+($time_array[1]*60));
+ // get modality object
+ $modality_obj=new cAirConditioningLocationModality($zone_obj->getCurrentStep()->fkModality);
  // debug
- api_dump(date("H:i"));
- api_dump($time);
- // cycle all current day step
- foreach($zone_obj->plannings[strtolower(date("l"))] as $step){
-  // check if time now is beetwen step times
-  if($time>=$step->time_start && $time<=$step->time_end){
-   // get modality object
-   $modality_obj=new cAirConditioningLocationModality($step->fkModality);
-   // debug
-   api_dump($modality_obj);
-  }
- }
+ api_dump($modality_obj);
  // check modality object
  if(!$modality_obj->id){
   // error
   $return->ok=false;
+  $return->datas['temperature']=10; /** @todo verificare e in caso mandare giu la temperatura di antigelo */
   $return->errors[]=make_error(302,"Modality not found","There was an error loading current modality");
   return $return;
-  /** @todo verificare e in caso mandare giu la temperatura di antigelo */
  }
  // ok
  $return->ok=true;
