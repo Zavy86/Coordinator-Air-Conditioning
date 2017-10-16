@@ -188,8 +188,8 @@ class cAirConditioningLocationZone{
    if($time>=$step->time_start && $time<=$step->time_end){$current_step=$step;}
   }
   // debug
-  api_dump(date("H:i")." -> ".$time,"current_time");
-  api_dump($current_step,"current_step");
+  /*api_dump(date("H:i")." -> ".$time,"current_time");
+  api_dump($current_step,"current_step");*/
   // check step
   if(!$current_step->fkModality){return false;}
   // return

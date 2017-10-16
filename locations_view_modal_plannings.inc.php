@@ -45,8 +45,8 @@ if(ACTION=="manage_plannings_edit"){
   /** @todo migliorare... provare con slider */
   $plannings_form->addControl("submit",api_text("form-fc-submit"));
  }
- // count plannings edit modal window
- if(count($days_array)>1){$plannings_form->addControl("button",api_text("locations_view-plannings-fc-delete"),"?mod=air-conditioning&scr=submit&act=location_zone_planning_delete&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"btn-danger",api_text("locations_view-plannings-fc-delete-confirm"));}
+ // count plannings or check if there was only one step not undefined
+ if(count($days_array)>1 || (count($days_array)==1 && $days_array[0]->fkModality>0)){$plannings_form->addControl("button",api_text("locations_view-plannings-fc-delete"),"?mod=air-conditioning&scr=submit&act=location_zone_planning_delete&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"btn-danger",api_text("locations_view-plannings-fc-delete-confirm"));}
  // close planning
  $plannings_form->addControl("button",api_text("form-fc-close"),"?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id);
  // build zone info modal window
