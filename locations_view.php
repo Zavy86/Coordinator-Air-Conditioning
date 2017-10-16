@@ -99,7 +99,12 @@
 
   // build XX panel
   $sensors_panel=new cPanel("Rilevazione");
-  $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/25","peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));
+
+  // get current step
+  $current_modality=new cAirConditioningLocationModality($zone_obj->getCurrentStep()->fkModality);
+  if($current_modality->id){$current_temperature=$current_modality->temperature;}else{$current_temperature=10;}
+  /** @todo usare temperatura dai settings al posto della 10 fissa */
+  $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/".$current_temperature,"peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));
   $html->addScript("$(\"span.peity-pie\").peity(\"pie\",{width:'50%',innerRadius:25,radius:50,fill:['#518DC1','#C6D9FD']});");
 
   $trend_array=$selected_zone_obj->getTrend();
