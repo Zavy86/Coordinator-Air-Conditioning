@@ -31,7 +31,7 @@
 
 
 
-
+ 
 
  foreach($location_obj->zones_array as $zone_obj){
 
