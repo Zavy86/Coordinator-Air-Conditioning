@@ -31,7 +31,7 @@
 
 
 
- 
+
 
  foreach($location_obj->zones_array as $zone_obj){
 
@@ -75,48 +75,44 @@
 
  foreach($zone_panels_array as $index=>$zone_panel){$panels_renderized.=$zone_panel->render();}
 
- $grid->addCol($panels_renderized,"col-xs-12 col-sm-3");
+ $grid->addCol($panels_renderized,"col-xs-12 col-sm-4");
 
 
  // selected zone
  if($selected_zone_obj->id){
 
-  $last_detection=$selected_zone_obj->getDetections(1)[0];
 
-  // build XX panel
-  $zone_panel=new cPanel($selected_zone_obj->name);
-  if($last_detection->timestamp){$difference=api_timestampDifferenceFormat(time()-$last_detection->timestamp,FALSE).api_text("locations_view-last_synchronization-ago");}
-  else{$difference=api_text("locations_view-last_synchronization-never");}
-  $zone_panel->SetBody(api_text("locations_view-last_synchronization").$difference);
-
-  // build XX panel
-  $notifications_panel=new cPanel("Registro eventi");
-  $notifications_panel->SetBody("2017-01-01 21:01 Sistema offline<br>2017-01-01 20:50 Riscaldamento acceso<br>2017-01-01 18:25 Riscaldamento spento");
-
-  // build XX panel
+  // build planning panel
   $planning_panel=new cPanel("Planning odierno");
   $planning_panel->SetBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],strtolower(date("l")))->render());
 
-  // build XX panel
-  $sensors_panel=new cPanel("Rilevazione");
+  // build detection panel
+  $detection_panel=new cPanel("Rilevazione");
 
+  // make last detection timestamp difference
+  $last_detection=$selected_zone_obj->getDetections(1)[0];
+  if($last_detection->timestamp){$difference=api_text("locations_view-last_detection-ago",api_timestampDifferenceFormat(time()-$last_detection->timestamp,FALSE));}
+  else{$difference=api_text("locations_view-last_detection-never");}
   // get current step
   $current_modality=new cAirConditioningLocationModality($zone_obj->getCurrentStep()->fkModality);
   if($current_modality->id){$current_temperature=$current_modality->temperature;}else{$current_temperature=10;}
   /** @todo usare temperatura dai settings al posto della 10 fissa */
-  $sensors_panel->SetBody(api_tag("span",$last_detection->temperature."/".$current_temperature,"peity-pie").api_tag("span",$last_detection->humidity."/100","peity-pie"));
+  // make detection body
+  $detection_body=api_tag("span",$last_detection->temperature."/".$current_temperature,"peity-pie");
+  $detection_body.=api_tag("span",$last_detection->humidity."/100","peity-pie");
+  $detection_body.="<br><br>".api_tag("div",api_text("locations_view-last_detection").$difference,"text-right");
+  $detection_panel->SetBody($detection_body);
   $html->addScript("$(\"span.peity-pie\").peity(\"pie\",{width:'50%',innerRadius:25,radius:50,fill:['#518DC1','#C6D9FD']});");
 
+  // build trend panel
+  $trend_panel=new cPanel("Ultime 24 ore");
+  // get selected zone trend
   $trend_array=$selected_zone_obj->getTrend();
   if(!is_array($trend_array)){$trend_array=array();}
-
-  // build XX panel
-  $trend_panel=new cPanel("Ultime 24 ore");
   $trend_panel->SetBody(api_tag("span",implode(",",$trend_array),"peity-trend"));
   $html->addScript("$(\"span.peity-trend\").peity(\"bar\",{width:'100%',height:80,fill:['#518DC1']});");
 
-  $grid->addCol($planning_panel->render().$sensors_panel->render().$trend_panel->render(),"col-xs-12 col-sm-5");
-  $grid->addCol($zone_panel->render().$notifications_panel->render(),"col-xs-12 col-sm-4");
+  $grid->addCol($planning_panel->render().$detection_panel->render().$trend_panel->render(),"col-xs-12 col-sm-8");
  }
 
  // add content to html

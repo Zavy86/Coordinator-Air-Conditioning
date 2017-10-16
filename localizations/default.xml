@@ -61,9 +61,9 @@
  <text key="locations_view-panel-plannings">Gestione pianificazione</text>
  <text key="locations_view-panel-offline">Offline</text>
 
- <text key="locations_view-last_synchronization">Ultima sincronizzazione: </text>
- <text key="locations_view-last_synchronization-ago"> fa</text>
- <text key="locations_view-last_synchronization-never">Mai</text>
+ <text key="locations_view-last_detection">Ultima rilevazione: </text>
+ <text key="locations_view-last_detection-ago"><![CDATA[{0}]]> fa</text>
+ <text key="locations_view-last_detection-never">Mai</text>
 
 <!-- locations_view_modal_modalities -->
  <text key="locations_view-modalities-modal-title"><![CDATA[{0}]]> - Modalità</text>
