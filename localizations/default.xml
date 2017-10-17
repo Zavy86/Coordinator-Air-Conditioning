@@ -61,9 +61,14 @@
  <text key="locations_view-panel-plannings">Gestione pianificazione</text>
  <text key="locations_view-panel-offline">Offline</text>
 
- <text key="locations_view-modalities-modal-title">{0} - Modalità</text>
- <text key="locations_view-modalities-modal-title-add">{0} - Aggiungi modalità</text>
- <text key="locations_view-modalities-modal-title-edit">{0} - Modifica modalità</text>
+ <text key="locations_view-last_detection">Ultima rilevazione: </text>
+ <text key="locations_view-last_detection-ago"><![CDATA[{0}]]> fa</text>
+ <text key="locations_view-last_detection-never">Mai</text>
+
+<!-- locations_view_modal_modalities -->
+ <text key="locations_view-modalities-modal-title"><![CDATA[{0}]]> - Modalità</text>
+ <text key="locations_view-modalities-modal-title-add"><![CDATA[{0}]]> - Aggiungi modalità</text>
+ <text key="locations_view-modalities-modal-title-edit"><![CDATA[{0}]]> - Modifica modalità</text>
 
  <text key="locations_view-modalities-th-temperature">Temp.</text>
  <text key="locations_view-modalities-th-modality">Modalità</text>
@@ -78,8 +83,10 @@
  <text key="locations_view-modalities-ff-color-placeholder">Seleziona un colore per distinguere la modalità</text>
  <text key="locations_view-modalities-fc-delete-confirm">Confermi di voler eliminare questa modalità?</text>
 
- <text key="locations_view-plannings-modal-title">{0} - Pianificazione settimanale</text>
- <text key="locations_view-plannings-modal-title-edit">{0} - Pianificazione di {1}</text>
+ <!-- locations_view_modal_planning -->
+ <text key="locations_view-plannings-modal-title"><![CDATA[{0}]]> - Pianificazione settimanale</text>
+ <text key="locations_view-plannings-modal-title-edit"><![CDATA[{0}]]> - Pianificazione di {1}</text>
+ <text key="locations_view-plannings-modal-title-clone"><![CDATA[{0}]]> - Clonazione pianificazione di {1}</text>
 
  <text key="locations_view-plannings-th-day">Giorno</text>
  <text key="locations_view-plannings-th-planning">Pianificazione</text>
@@ -91,9 +98,9 @@
  <text key="locations_view-plannings-fc-delete">Elimina ultimo step</text>
  <text key="locations_view-plannings-fc-delete-confirm">Confermi di voler eliminare l'ultimo step di questa pianificazione?</text>
 
- <text key="locations_view-last_synchronization">Ultima sincronizzazione: </text>
- <text key="locations_view-last_synchronization-ago"> fa</text>
- <text key="locations_view-last_synchronization-never">Mai</text>
+ <text key="locations_view-plannings-ff-days">Giorni</text>
+ <text key="locations_view-plannings-fc-clone">Clona</text>
+ <text key="locations_view-plannings-fc-clone-confirm">Confermi di voler clonare la pianificazione di <![CDATA[{0}]]> sui giorni selezionati?</text>
 
  <!-- locations_manage -->
  <text key="locations_manage">Gestione location</text>
