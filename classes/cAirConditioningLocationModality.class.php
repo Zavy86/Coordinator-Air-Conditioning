@@ -39,7 +39,7 @@ class cAirConditioningLocationModality{
  public function __construct($modality){
   // get object
   if(is_numeric($modality)){$modality=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `air-conditioning_locations_modalities` WHERE `id`='".$modality."'");}
-  if(!$modality->id){return FALSE;}
+  if(!$modality->id){return false;}
   // set properties
   $this->id=(int)$modality->id;
   $this->name=stripslashes($modality->name);
@@ -50,8 +50,8 @@ class cAirConditioningLocationModality{
   $this->updTimestamp=(int)$modality->updTimestamp;
   $this->updFkUser=(int)$modality->updFkUser;
   // make icon
-  $this->icon=api_icon("fa-square",$this->temperature."°C - ".$this->name,NULL,"color:".$this->color);
-  return TRUE;
+  $this->icon=api_icon("fa-square",$this->temperature."°C - ".$this->name,null,"color:".$this->color);
+  return true;
  }
 
  /**

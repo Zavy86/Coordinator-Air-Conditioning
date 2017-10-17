@@ -12,8 +12,8 @@ if(!defined('ACTION')){die("ERROR EXECUTING SCRIPT: The action was not defined")
 switch(ACTION){
  // locations
  case "location_save":location_save();break;
- case "location_delete":location_deleted(TRUE);break;
- case "location_undelete":location_deleted(FALSE);break;
+ case "location_delete":location_deleted(true);break;
+ case "location_undelete":location_deleted(false);break;
  case "location_remove":location_remove();break;
  // locations modalities
  case "location_modality_save":location_modality_save();break;

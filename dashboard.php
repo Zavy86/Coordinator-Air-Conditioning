@@ -14,7 +14,7 @@
  $dashboard=new cDashboard();
  // cycle all locations
  foreach(api_airConditioning_locations() as $location_obj){
-  $location_zones=NULL;
+  $location_zones=null;
   foreach($location_obj->zones_array as $zone_obj){
    $last_detection=$zone_obj->getDetections(1)[0];
    // che if last detection is not oldest than 15 minutes
@@ -25,7 +25,7 @@
    }
    $location_zones.="<br>".$zone_obj->name.": ".$detection;
   }
-  $dashboard->addTile("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id,$location_obj->name,substr($location_zones,4),TRUE,"1x1","fa-thermometer-three-quarters");
+  $dashboard->addTile("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id,$location_obj->name,substr($location_zones,4),true,"1x1","fa-thermometer-three-quarters");
  }
  // manage locations
  $dashboard->addTile("?mod=air-conditioning&scr=locations_list",api_text("dashboard-manage"),api_text("dashboard-manage-description"),(api_checkAuthorization(MODULE,"air-conditioning-manage")),"1x1","fa-bars");

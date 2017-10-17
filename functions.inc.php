@@ -19,7 +19,7 @@ require_once(ROOT."modules/air-conditioning/classes/cAirConditioningLocationZone
  * @param boolean $deleted Show deleted locations
  * @return array Locations objects
  */
-function api_airConditioning_locations($deleted=FALSE){
+function api_airConditioning_locations($deleted=false){
  // definitions
  $locations_array=array();
  // get location objects

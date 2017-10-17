@@ -18,12 +18,12 @@
  $html->setTitle(($zone_obj->id?api_text("locations_zones_edit"):api_text("locations_zones_edit-add")));
  // build location form
  $form=new cForm("?mod=air-conditioning&scr=submit&act=location_zone_save&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,"POST",null,"locations_zones_edit");
- $form->addField("static",NULL,api_text("locations_zones_edit-ff-location"),api_tag("strong",$location_obj->name));
+ $form->addField("static",null,api_text("locations_zones_edit-ff-location"),api_tag("strong",$location_obj->name));
  if($zone_obj->id){
-  $form->addField("checkbox","token",api_text("locations_zones_edit-ff-token"),NULL,$zone_obj->token);
+  $form->addField("checkbox","token",api_text("locations_zones_edit-ff-token"),null,$zone_obj->token);
   $form->addFieldOption("new",api_text("locations_zones_edit-fo-token-new"));
  }
- $form->addField("text","name",api_text("locations_zones_edit-ff-name"),$zone_obj->name,api_text("locations_zones_edit-ff-name-placeholder"),NULL,NULL,NULL,"required");
+ $form->addField("text","name",api_text("locations_zones_edit-ff-name"),$zone_obj->name,api_text("locations_zones_edit-ff-name-placeholder"),null,null,null,"required");
  $form->addField("text","description",api_text("locations_zones_edit-ff-description"),$zone_obj->description,api_text("locations_zones_edit-ff-description-placeholder"));
  foreach(api_airConditioning_availableAppliances() as $code=>$appliance){
   $field=$code."_relay";
