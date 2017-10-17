@@ -35,7 +35,7 @@
 
  foreach($location_obj->zones_array as $zone_obj){
 
-  $zone_panel_body=NULL;
+  $zone_panel_body=null;
 
   $last_detection=$zone_obj->getDetections(1)[0];
   // che if last detection is not oldest than 15 minutes
@@ -54,17 +54,15 @@
 
   $html->addScript("$(\"span.peity-line\").peity(\"line\",{width:'100%',height:30,stroke:'#337AB7'});");
 
-  $panel_link=api_link("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,api_icon("fa-arrow-circle-o-right",NULL,"hidden-link"));
-  if($zone_obj->id==$selected_zone_obj->id){$panel_link=NULL;}
+  $panel_link=api_link("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$zone_obj->id,api_icon("fa-arrow-circle-o-right",null,"hidden-link"));
+  if($zone_obj->id==$selected_zone_obj->id){$panel_link=null;}
 
   // build zone panel
-  $zone_panel=new cPanel($zone_obj->name." ".api_tag("span",$panel_link,"pull-right"),($zone_obj->id==$selected_zone_obj->id?"panel-primary":NULL));
+  $zone_panel=new cPanel($zone_obj->name." ".api_tag("span",$panel_link,"pull-right"),($zone_obj->id==$selected_zone_obj->id?"panel-primary":null));
   $zone_panel->SetBody($zone_panel_body);
 
   $zone_panels_array[]=$zone_panel;
  }
-
-
 
 
  // build grid object
@@ -77,10 +75,8 @@
 
  $grid->addCol($panels_renderized,"col-xs-12 col-sm-4");
 
-
  // selected zone
  if($selected_zone_obj->id){
-
 
   // build planning panel
   $planning_panel=new cPanel("Planning odierno");
@@ -89,95 +85,66 @@
   // build detection panel
   $detection_panel=new cPanel("Rilevazione");
 
-  // make last detection timestamp difference
+  // get last detection
   $last_detection=$selected_zone_obj->getDetections(1)[0];
-  if($last_detection->timestamp){$difference=api_text("locations_view-last_detection-ago",api_timestampDifferenceFormat(time()-$last_detection->timestamp,FALSE));}
-  else{$difference=api_text("locations_view-last_detection-never");}
+
   // get current step
-  $current_modality=new cAirConditioningLocationModality($zone_obj->getCurrentStep()->fkModality);
+  $current_modality=new cAirConditioningLocationModality($selected_zone_obj->getCurrentStep()->fkModality);
   if($current_modality->id){$current_temperature=$current_modality->temperature;}else{$current_temperature=10;}
   /** @todo usare temperatura dai settings al posto della 10 fissa */
-  // make detection body
-  $detection_body=api_tag("span",$last_detection->temperature."/".$current_temperature,"peity-pie");
-  $detection_body.=api_tag("span",$last_detection->humidity."/100","peity-pie");
-  $detection_body.="<br><br>".api_tag("div",api_text("locations_view-last_detection").$difference,"text-right");
-  $detection_panel->SetBody($detection_body);
-  $html->addScript("$(\"span.peity-pie\").peity(\"pie\",{width:'50%',innerRadius:25,radius:50,fill:['#518DC1','#C6D9FD']});");
 
-  $detection_body="<div><div id='justgage1' class='justgage' style='width:50%'></div>";
-  $detection_body.="<div id='justgage2' class='justgage' style='width:50%'></div></div>";
-  $detection_panel->SetBody($detection_body);
+  // build temperature gauge
+  $detection_gauge=new cGauge();
+  $detection_gauge->options['value']=$last_detection->temperature;
+  $detection_gauge->options['min']=8;
+  $detection_gauge->options['max']=32;
+  $detection_gauge->options['title']="Temperatura";
+  $detection_gauge->options['label']="Rilevati";
+  $detection_gauge->options['symbol']="°";
+  $detection_gauge->options['decimals']=1;
+  //$detection_gauge->options['levelColors']=array("#337ab7");
+  // build humidity gauge
+  $humidity_gauge=new cGauge();
+  $humidity_gauge->options['value']=round($last_detection->humidity);
+  $humidity_gauge->options['title']="Umidità";
+  $humidity_gauge->options['label']="rilevata";
+  $humidity_gauge->options['symbol']="%";
+  //$humidity_gauge->options['levelColors']=array("#337ab7");
+  $humidity_gauge->options['levelColors']=array("#ff0000","#a9d70b","#ff0000");
+  // build temperature gauge
+  $temperature_gauge=new cGauge();
+  $temperature_gauge->options['value']=($last_detection->temperature-$current_temperature<0?$last_detection->temperature-$current_temperature:0);
+  $temperature_gauge->options['min']=-($current_temperature);
+  $temperature_gauge->options['max']=0;
+  $temperature_gauge->options['hideMinMax']=true;
+  $temperature_gauge->options['title']="Target";
+  $temperature_gauge->options['label']="al target di ".$current_temperature."°C";
+  $temperature_gauge->options['symbol']="°";
+  $temperature_gauge->options['decimals']=1;
+  $temperature_gauge->options['levelColors']=array($current_modality->color);
 
-  $script=" var g = new JustGage({
-    id:'justgage1',
-    value: ".$last_detection->temperature.",
-    min: 0,
-    max: ".$current_temperature.",
-    symbol: '°C',
-    title: 'Temperatura',
-    /*label: 'Temperatura',*/
-    relativeGaugeSize: true,
-
-    /* colore se lo toglie fa da verde a rosso */
-    levelColorsGradient: false,
-    gaugeColor: '#ffffff',
-    /*levelColors: ['#0099FF'],*/
-    levelColors: ['#337AB7'],
-
-    titleFontColor: '#333333',
-    valueFontColor: '#333333',
-    labelFontColor: '#666666',
-
-    pointer: true,
-    pointerOptions: {
-          toplength: -18,
-          bottomlength: 9,
-          bottomwidth: 9,
-          color: '#666666',
-          stroke: '#ffffff',
-          stroke_width: 3,
-          stroke_linecap: 'round'
-          },
-
-    gaugeWidthScale: 1,
-    counter: true
-  });";
-
-  $script.=" var g = new JustGage({
-    id:'justgage2',
-    value: ".$last_detection->humidity.",
-    min: 0,
-    max: 100,
-    symbol: '%',
-    title: 'Umidità',
-    /*label: 'Umidità',*/
-
-    titleFontColor: '#333333',
-    valueFontColor: '#333333',
-    labelFontColor: '#666666',
-
-    relativeGaugeSize: true,
-    levelColorsGradient: false,
-    gaugeColor: '#ffffff',
-    levelColors: ['#337AB7'],
-
-
-    pointer: true,
-    pointerOptions: {
-          toplength: -18,
-          bottomlength: 9,
-          bottomwidth: 9,
-          color: '#666666',
-          stroke: '#ffffff',
-          stroke_width: 3,
-          stroke_linecap: 'round'
-          },
-    gaugeWidthScale: 1,
-    counter: true
-
-  });";
-
-  $html->addScript($script);
+  // build detection grid
+  $detection_grid=new cGrid();
+  $detection_grid->addRow();
+  $detection_grid->addCol($detection_gauge->render(),"col-xs-4 col-sm-4");
+  $detection_grid->addCol($humidity_gauge->render(),"col-xs-4 col-sm-4");
+  $detection_grid->addCol($temperature_gauge->render(),"col-xs-4 col-sm-4");
+  // check for last detection timestamp
+  if((time()-$last_detection->timestamp)>300){
+   // make last detection
+   if($last_detection->timestamp){$difference=api_text("locations_view-last_detection-ago",api_timestampDifferenceFormat(time()-$last_detection->timestamp,false));}
+   else{$difference=api_text("locations_view-last_detection-never");}
+   $last_detection=api_text("locations_view-last_detection").$difference." ".api_icon("fa-exclamation-triangle");
+   // add difference to detection grid
+   $detection_grid->addRow();
+   $detection_grid->addCol(api_tag("div",api_tag("small",$last_detection),"text-right"),"col-xs-12 col-sm-12");
+  }
+  // add detection grid to detection panel
+  $detection_panel->SetBody($detection_grid->render(false));
+  // add gauges scripts
+  $html->addScript($detection_gauge->getScript());
+  $html->addScript($temperature_gauge->getScript());
+  $html->addScript($humidity_gauge->getScript());
 
   // build trend panel
   $trend_panel=new cPanel("Ultime 24 ore");
@@ -187,6 +154,7 @@
   $trend_panel->SetBody(api_tag("span",implode(",",$trend_array),"peity-trend"));
   $html->addScript("$(\"span.peity-trend\").peity(\"bar\",{width:'100%',height:80,fill:['#518DC1']});");
 
+  // add planning, detection and trend panels to grid
   $grid->addCol($planning_panel->render().$detection_panel->render().$trend_panel->render(),"col-xs-12 col-sm-8");
  }
 
