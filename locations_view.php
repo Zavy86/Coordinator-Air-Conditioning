@@ -104,6 +104,81 @@
   $detection_panel->SetBody($detection_body);
   $html->addScript("$(\"span.peity-pie\").peity(\"pie\",{width:'50%',innerRadius:25,radius:50,fill:['#518DC1','#C6D9FD']});");
 
+  $detection_body="<div><div id='justgage1' class='justgage' style='width:50%'></div>";
+  $detection_body.="<div id='justgage2' class='justgage' style='width:50%'></div></div>";
+  $detection_panel->SetBody($detection_body);
+
+  $script=" var g = new JustGage({
+    id:'justgage1',
+    value: ".$last_detection->temperature.",
+    min: 0,
+    max: ".$current_temperature.",
+    symbol: '°C',
+    title: 'Temperatura',
+    /*label: 'Temperatura',*/
+    relativeGaugeSize: true,
+
+    /* colore se lo toglie fa da verde a rosso */
+    levelColorsGradient: false,
+    gaugeColor: '#ffffff',
+    /*levelColors: ['#0099FF'],*/
+    levelColors: ['#337AB7'],
+
+    titleFontColor: '#333333',
+    valueFontColor: '#333333',
+    labelFontColor: '#666666',
+
+    pointer: true,
+    pointerOptions: {
+          toplength: -18,
+          bottomlength: 9,
+          bottomwidth: 9,
+          color: '#666666',
+          stroke: '#ffffff',
+          stroke_width: 3,
+          stroke_linecap: 'round'
+          },
+
+    gaugeWidthScale: 1,
+    counter: true
+  });";
+
+  $script.=" var g = new JustGage({
+    id:'justgage2',
+    value: ".$last_detection->humidity.",
+    min: 0,
+    max: 100,
+    symbol: '%',
+    title: 'Umidità',
+    /*label: 'Umidità',*/
+
+    titleFontColor: '#333333',
+    valueFontColor: '#333333',
+    labelFontColor: '#666666',
+
+    relativeGaugeSize: true,
+    levelColorsGradient: false,
+    gaugeColor: '#ffffff',
+    levelColors: ['#337AB7'],
+
+
+    pointer: true,
+    pointerOptions: {
+          toplength: -18,
+          bottomlength: 9,
+          bottomwidth: 9,
+          color: '#666666',
+          stroke: '#ffffff',
+          stroke_width: 3,
+          stroke_linecap: 'round'
+          },
+    gaugeWidthScale: 1,
+    counter: true
+
+  });";
+
+  $html->addScript($script);
+
   // build trend panel
   $trend_panel=new cPanel("Ultime 24 ore");
   // get selected zone trend
