@@ -9,6 +9,10 @@
  // get objects
  $location_obj=new cAirConditioningLocation($_REQUEST['idLocation']);
  $selected_zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
+ if(!$selected_zone_obj){ /** @todo migliorabile */
+  foreach($location_obj->zones_array as $zone_obj){$selected_zone_obj=$zone_obj;break;}
+  $_REQUEST['idZone']=$selected_zone_obj->id;
+ }
  // check objects
  if(!$location_obj->id){api_alerts_add(api_text("framework_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
  // include module template
@@ -148,11 +152,87 @@
 
   // build trend panel
   $trend_panel=new cPanel("Ultime 24 ore");
-  // get selected zone trend
+  /*// get selected zone trend
   $trend_array=$selected_zone_obj->getTrend();
   if(!is_array($trend_array)){$trend_array=array();}
   $trend_panel->SetBody(api_tag("span",implode(",",$trend_array),"peity-trend"));
-  $html->addScript("$(\"span.peity-trend\").peity(\"bar\",{width:'100%',height:80,fill:['#518DC1']});");
+  $html->addScript("$(\"span.peity-trend\").peity(\"bar\",{width:'100%',height:80,fill:['#518DC1']});");*/
+
+
+  $trend_array=$selected_zone_obj->getTrend();
+
+  // make min and max by detection
+  $gradi_min=100;
+  $gradi_max=0;
+  foreach($trend_array as $grado){
+   if($grado<$gradi_min){$gradi_min=$grado;}
+   if($grado>$gradi_max){$gradi_max=$grado;}
+  }
+
+  $gradi_min=round($gradi_min)-2;
+  $gradi_max=round($gradi_max)+2;
+
+  // make min and max by target
+  $gradi_min=13;
+
+  $trend_detection=implode(",",$trend_array);
+
+$script=<<<EOT
+
+var ctx = $("#myChart");
+
+var chartData = {
+ labels: [10,11,12,13,14,15,16,17,18,19,20,21,22,23,0,1,2,3,4,5,6,7,8,9],
+ datasets: [/*{
+     type: 'line',
+     label: 'Temperatura target',
+     borderColor: "#337AB7",
+     backgroundColor: "#387CC9",
+     pointBackgroundColor: "#387CC9",
+     fill:false,
+     data: [15,15,15,15,21,21,21,21,15,15,15,15,21,21,21,18,18,18,18,18,18,18,18,15]
+ }, */{
+     type: 'line',
+     label: 'Temperatura rilevata',
+     borderColor: "#42A5F5",
+     backgroundColor: "#5EB2F6",
+     fill:true,
+     data: [{$trend_detection}]
+ }]
+
+};
+
+var chart = new Chart(ctx, {
+   type: 'line',
+   data: chartData,
+   options: {
+       tooltips: {
+           mode: 'index'
+       },
+       scales: {
+          yAxes: [{
+              ticks: {
+                min: {$gradi_min},
+                max: {$gradi_max},
+                stepSize: 1
+              }
+          }]
+      },
+      legend: {
+       display: false
+      }
+   }
+});
+
+EOT;
+
+
+
+  // get selected zone trend
+  $trend_array=$selected_zone_obj->getTrend();
+  if(!is_array($trend_array)){$trend_array=array();}
+  $trend_panel->SetBody("<canvas id='myChart' height='100'></canvas>");
+  $html->addScript($script);
 
   // add planning, detection and trend panels to grid
   $grid->addCol($planning_panel->render().$detection_panel->render().$trend_panel->render(),"col-xs-12 col-sm-8");
