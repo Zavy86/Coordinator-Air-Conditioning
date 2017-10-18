@@ -40,7 +40,7 @@ class cAirConditioningLocation{
  public function __construct($location){
   // get object
   if(is_numeric($location)){$location=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `air-conditioning_locations` WHERE `id`='".$location."'");}
-  if(!$location->id){return FALSE;}
+  if(!$location->id){return false;}
   // set properties
   $this->id=(int)$location->id;
   $this->name=stripslashes($location->name);
@@ -58,7 +58,7 @@ class cAirConditioningLocation{
   $this->zones_array=array();
   $zones_results=$GLOBALS['database']->queryObjects("SELECT * FROM `air-conditioning_locations_zones` WHERE `fkLocation`='".$this->id."' ORDER BY `order`");
   foreach($zones_results as $zone){$this->zones_array[$zone->id]=new cAirConditioningLocationZone($zone);}
-  return TRUE;
+  return true;
  }
 
  /**

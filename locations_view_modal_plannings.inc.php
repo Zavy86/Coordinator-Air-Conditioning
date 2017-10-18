@@ -11,7 +11,7 @@ if(ACTION=="manage_plannings"){
  // build plannings table
  $plannings_table=new cTable();
  $plannings_table->addHeader(api_text("locations_view-plannings-th-day"),"nowarp");
- $plannings_table->addHeader(api_text("locations_view-plannings-th-planning"),NULL,"100%");
+ $plannings_table->addHeader(api_text("locations_view-plannings-th-planning"),null,"100%");
  // cycle all days
  foreach(api_weekly_days() as $day){
   // add table row
@@ -23,7 +23,7 @@ if(ACTION=="manage_plannings"){
   $plannings_table->addRowFieldAction("?mod=air-conditioning&scr=locations_view&act=manage_plannings_clone&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$day,api_icon("fa-clone",api_text("locations_view-plannings-td-clone"),"hidden-link"));
  }
  // build zone info modal window
- $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title",$location_obj->name),NULL,"locations_view-plannings");
+ $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title",$location_obj->name),null,"locations_view-plannings");
  $plannings_modal->setBody($plannings_table->render());
  // add modal to html object
  $html->addModal($plannings_modal);
@@ -35,7 +35,7 @@ if(ACTION=="manage_plannings_edit"){
  // get steps of selected day
  $days_array=$selected_zone_obj->plannings[$_REQUEST['day']];
  // build plannings form
- $plannings_form=new cForm("?mod=air-conditioning&scr=submit&act=location_zone_planning_save&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"POST",NULL,"locations_view_plannings_edit");
+ $plannings_form=new cForm("?mod=air-conditioning&scr=submit&act=location_zone_planning_save&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"POST",null,"locations_view_plannings_edit");
  // check if last step of selected day is not defined
  if(!end($days_array)->fkModality){
   $plannings_form->addField("select","fkModality",api_text("locations_view-plannings-ff-fkModality"));
@@ -51,7 +51,7 @@ if(ACTION=="manage_plannings_edit"){
  // close planning
  $plannings_form->addControl("button",api_text("form-fc-close"),"?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id);
  // build zone info modal window
- $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title-edit",array($location_obj->name,api_text($_REQUEST['day']))),NULL,"locations_view-plannings_edit");
+ $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title-edit",array($location_obj->name,api_text($_REQUEST['day']))),null,"locations_view-plannings_edit");
  $plannings_modal->setBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],$_REQUEST['day'])->render()."<br>".$plannings_form->render(2));
 
  /** @todo verificare con margnini in api progress bar */
@@ -67,13 +67,13 @@ if(ACTION=="manage_plannings_edit"){
 // plannings clone
 if(ACTION=="manage_plannings_clone"){
  // build plannings form
- $plannings_form=new cForm("?mod=air-conditioning&scr=submit&act=location_zone_planning_clone&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"POST",NULL,"locations_view_plannings_clone");
+ $plannings_form=new cForm("?mod=air-conditioning&scr=submit&act=location_zone_planning_clone&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$_REQUEST['day'],"POST",null,"locations_view_plannings_clone");
  $plannings_form->addField("checkbox","days[]",api_text("locations_view-plannings-ff-days"));
  foreach(api_weekly_days() as $day){$plannings_form->addFieldOption($day,api_text($day),null,null,null,($day==$_REQUEST['day']?false:true));}
  $plannings_form->addControl("submit",api_text("locations_view-plannings-fc-clone"),null,null,api_text("locations_view-plannings-fc-clone-confirm",api_text($_REQUEST['day'])));
  $plannings_form->addControl("button",api_text("form-fc-cancel"),"?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id);
  // build zone info modal window
- $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title-clone",array($location_obj->name,api_text($_REQUEST['day']))),NULL,"locations_view-plannings_clone");
+ $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title-clone",array($location_obj->name,api_text($_REQUEST['day']))),null,"locations_view-plannings_clone");
  $plannings_modal->setBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],$_REQUEST['day'])->render()."<br>".$plannings_form->render(2));
  // add modal to html object
  $html->addModal($plannings_modal);

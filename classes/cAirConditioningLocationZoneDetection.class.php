@@ -38,7 +38,7 @@ class cAirConditioningLocationZoneDetection{
  public function __construct($detection){
   // get object
   if(is_numeric($detection)){$detection=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `air-conditioning_locations_zones_detections` WHERE `id`='".$detection."'");}
-  if(!$detection->id){return FALSE;}
+  if(!$detection->id){return false;}
   // set properties
   $this->id=(int)$detection->id;
   $this->timestamp=(int)$detection->timestamp;
@@ -48,7 +48,7 @@ class cAirConditioningLocationZoneDetection{
   $this->cooler_status=(boolean)$detection->cooler_status;
   $this->dehumidifier_status=(boolean)$detection->dehumidifier_status;
   $this->humidifier_status=(boolean)$detection->humidifier_status;
-  return TRUE;
+  return true;
  }
 
  /**

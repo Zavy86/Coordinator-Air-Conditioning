@@ -49,7 +49,7 @@ class cAirConditioningLocationZone{
   // get object
   if(is_numeric($zone)){$zone=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `air-conditioning_locations_zones` WHERE `id`='".$zone."'");}
   elseif(is_string($zone) && strlen($zone)==32){$zone=$GLOBALS['database']->queryUniqueObject("SELECT * FROM `air-conditioning_locations_zones` WHERE `token`='".$zone."'");}
-  if(!$zone->id){return FALSE;}
+  if(!$zone->id){return false;}
   // set properties
   $this->id=(int)$zone->id;
   $this->order=(int)$zone->order;
@@ -75,7 +75,7 @@ class cAirConditioningLocationZone{
   if($this->dehumidifier_relay){$this->appliances_array['dehumidifier']=$this->buildAppliance("dehumidifier");}
   if($this->humidifier_relay){$this->appliances_array['humidifier']=$this->buildAppliance("humidifier");}
   // return
-  return TRUE;
+  return true;
  }
 
  /**
@@ -93,7 +93,7 @@ class cAirConditioningLocationZone{
   * @param boolean $showText Show text
   * @return string Appliances list
   */
- public function getAppliances($glue=", ",$showIcon=TRUE,$showText=TRUE){
+ public function getAppliances($glue=", ",$showIcon=true,$showText=true){
   // definitions
   $appliances_array=array();
   // cycle all appliances
@@ -120,9 +120,9 @@ class cAirConditioningLocationZone{
   * @param integer $timestamp Oldest timestamp to extract
   * @return array Detections
   */
- public function getDetections($limit=NULL,$timestamp=NULL){
+ public function getDetections($limit=null,$timestamp=null){
   // check for parameters
-  if($limit==NULL && $timestamp==NULL){return FALSE;}
+  if($limit==null && $timestamp==null){return false;}
   // definitions
   $detections_array=array();
   // check for limit
@@ -210,7 +210,7 @@ class cAirConditioningLocationZone{
    case "cooler":$icon=api_icon("fa-snowflake-o",api_text("appliance-cooler"));$text=api_text("appliance-cooler");break;
    case "humidifier":$icon=api_icon("fa-tint",api_text("appliance-humidifier"));$text=api_text("appliance-humidifier");break;
    case "dehumidifier":$icon=api_icon("fa-cloud",api_text("appliance-dehumidifier"));$text=api_text("appliance-dehumidifier");break;
-   default:return NULL;
+   default:return null;
   }
   // return
   $return->appliance=$icon." ".$text;
