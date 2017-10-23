@@ -91,6 +91,7 @@ if(ACTION=="manage_plannings_manual"){
  $plannings_form->addFieldOption(7200,"2 ".api_text("hours"));
  $plannings_form->addFieldOption(10800,"3 ".api_text("hours"));
  $plannings_form->addControl("submit",api_text("form-fc-submit"));
+ $plannings_form->addControl("button",api_text("locations_view-plannings-fc-cancel"),"?mod=air-conditioning&scr=submit&act=location_zone_planning_manual&disable=1&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,"btn-warning",api_text("locations_view-plannings-fc-cancel-confirm"));
  $plannings_form->addControl("button",api_text("locations_view-plannings-fc-edit",api_text($v_day)),"?mod=air-conditioning&scr=locations_view&act=manage_plannings_edit&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id."&day=".$v_day);
  // build zone info modal window
  $plannings_modal=new cModal(api_text("locations_view-plannings-modal-title-manual",array($location_obj->name,$selected_zone_obj->name)),null,"locations_view-plannings_clone");

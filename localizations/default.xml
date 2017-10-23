@@ -115,7 +115,9 @@
  <text key="locations_view-plannings-ff-temperature-placeholder">Inserisci la temperatura manuale da mantenere..</text>
  <text key="locations_view-plannings-ff-duration">Durata</text>
  <text key="locations_view-plannings-ff-duration-placeholder">Seleziona una durata..</text>
- <text key="locations_view-plannings-fc-edit">Modifica pianificazione di <![CDATA[{0}]]></text>
+ <text key="locations_view-plannings-fc-cancel">Annulla manuale</text>
+ <text key="locations_view-plannings-fc-cancel-confirm">Confermi di voler annullare la modalità manuale e tornare alla temperatura pianificata?</text>
+ <text key="locations_view-plannings-fc-edit">Modifica <![CDATA[{0}]]></text>
 
  <!-- locations_manage -->
  <text key="locations_manage">Gestione location</text>
