@@ -31,9 +31,6 @@ switch(ACTION){
  // zones
  case "zone_upload":zone_upload($return);break;
  case "zone_getTemperatureSetpoint":zone_getTemperatureSetpoint($return);break;
-
- case "zone_download":zone_download($return);break;
- case "zone_updates":zone_updates($return);break;
  // default
  default:
   // action not found
@@ -108,6 +105,8 @@ function zone_upload($return){
  * Zone Get Temperature Setpoint
  */
 function zone_getTemperatureSetpoint($return){
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
  // get objects
  $zone_obj=new cAirConditioningLocationZone($_REQUEST['token']);
  // check objects
@@ -117,14 +116,10 @@ function zone_getTemperatureSetpoint($return){
   $return->errors[]=make_error(301,"Zone not found","The zone with token ".$_REQUEST['token']." was not found");
   return $return;
  }
- // debug
- api_dump($_REQUEST,"_REQUEST");
- // get modality object
- $modality_obj=new cAirConditioningLocationModality($zone_obj->getCurrentStep()->fkModality);
- // debug
- api_dump($modality_obj);
- // check modality object
- if(!$modality_obj->id){
+ // make current temperature
+ $current_temperature=$zone_obj->getCurrentTemperature();
+ // check temperature
+ if(!$current_temperature){
   // error
   $return->ok=false;
   $return->datas['temperature']=10; /** @todo verificare e in caso mandare giu la temperatura di antigelo */
@@ -133,7 +128,7 @@ function zone_getTemperatureSetpoint($return){
  }
  // ok
  $return->ok=true;
- $return->datas['temperature']=$modality_obj->temperature;
+ $return->datas['temperature']=$current_temperature;
  // debug
  api_dump($return,"return");
  api_dump($zone_obj,"zone object");
