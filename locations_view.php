@@ -140,10 +140,10 @@
   $detection_grid->addCol($humidity_gauge->render(),"col-xs-4 col-sm-4");
   $detection_grid->addCol($temperature_gauge->render(),"col-xs-4 col-sm-4");
   // check for manual mode
-  if((time()<=$selected_zone_obj->manual->endTimestamp)){
+  if((time()<=$selected_zone_obj->manual_timestamp)){
    // add manual warning to detection grid
    $detection_grid->addRow();
-   $detection_grid->addCol(api_tag("div",api_tag("small",api_text("locations_view-manual",$selected_zone_obj->manual->temperature)."°C ".api_icon("fa-exclamation-triangle")),"text-right"),"col-xs-12 col-sm-12");
+   $detection_grid->addCol(api_tag("div",api_tag("small",api_text("locations_view-manual",$selected_zone_obj->manual_temperature)."°C ".api_icon("fa-exclamation-triangle")),"text-right"),"col-xs-12 col-sm-12");
   }
   // check for last detection timestamp
   if((time()-$last_detection->timestamp)>300){
