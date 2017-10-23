@@ -27,7 +27,8 @@
  // location menu
  $location_list=new cList();
  $location_list->addElement(api_link("?mod=air-conditioning&scr=locations_view&act=manage_modalities&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_text("locations_view-panel-modalities")));
- if($selected_zone_obj->id){$location_list->addElement(api_link("?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_text("locations_view-panel-plannings")));}
+
+ if($selected_zone_obj->id){$location_list->addElement(api_link("?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_text("locations_view-panel-plannings",$selected_zone_obj->name)));}
 
  // build location panel
  $location_panel=new cPanel($location_obj->name,"panel-primary");
@@ -82,19 +83,24 @@
  // selected zone
  if($selected_zone_obj->id){
 
+  //$planning_body.=api_link("#",api_icon("fa-edit",api_text("locations_view-modalities-td-add"),"hidden-link"),null,"btn btn-default btn-xs");
+
   // build planning panel
-  $planning_panel=new cPanel("Planning odierno");
+  $planning_panel=new cPanel(api_link("?mod=air-conditioning&scr=locations_view&act=manage_plannings_manual&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_icon("fa-clock-o",api_text("locations_view-planning-panel-manual"),"hidden-link"))." ".api_text("locations_view-planning-panel-title"));
   $planning_panel->SetBody(api_airConditioning_locationZonePlanningDayProgressBar($location_obj,$_REQUEST['idZone'],strtolower(date("l")))->render());
 
   // build detection panel
-  $detection_panel=new cPanel("Rilevazione");
+  $detection_panel=new cPanel(api_link("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_icon("fa-refresh",api_text("locations_view-detection-panel-refresh"),"hidden-link"))." ".api_text("locations_view-detection-panel-title"));
 
   // get last detection
   $last_detection=$selected_zone_obj->getDetections(1)[0];
 
+  // get current modality
+  $current_modality_obj=new cAirConditioningLocationModality($selected_zone_obj->getCurrentStep()->fkModality);
+
   // get current step
-  $current_modality=new cAirConditioningLocationModality($selected_zone_obj->getCurrentStep()->fkModality);
-  if($current_modality->id){$current_temperature=$current_modality->temperature;}else{$current_temperature=10;}
+  $current_temperature=$selected_zone_obj->getCurrentTemperature();
+  if(!$current_temperature){$current_temperature=10;}
   /** @todo usare temperatura dai settings al posto della 10 fissa */
 
   // build temperature gauge
@@ -125,7 +131,7 @@
   $temperature_gauge->options['label']="al target di ".$current_temperature."°C";
   $temperature_gauge->options['symbol']="°";
   $temperature_gauge->options['decimals']=1;
-  $temperature_gauge->options['levelColors']=array($current_modality->color);
+  $temperature_gauge->options['levelColors']=array($current_modality_obj->color);
 
   // build detection grid
   $detection_grid=new cGrid();
@@ -133,13 +139,19 @@
   $detection_grid->addCol($detection_gauge->render(),"col-xs-4 col-sm-4");
   $detection_grid->addCol($humidity_gauge->render(),"col-xs-4 col-sm-4");
   $detection_grid->addCol($temperature_gauge->render(),"col-xs-4 col-sm-4");
+  // check for manual mode
+  if((time()<=$selected_zone_obj->manual->endTimestamp)){
+   // add manual warning to detection grid
+   $detection_grid->addRow();
+   $detection_grid->addCol(api_tag("div",api_tag("small",api_text("locations_view-manual",$selected_zone_obj->manual->temperature)."°C ".api_icon("fa-exclamation-triangle")),"text-right"),"col-xs-12 col-sm-12");
+  }
   // check for last detection timestamp
   if((time()-$last_detection->timestamp)>300){
    // make last detection
    if($last_detection->timestamp){$difference=api_text("locations_view-last_detection-ago",api_timestampDifferenceFormat(time()-$last_detection->timestamp,false));}
    else{$difference=api_text("locations_view-last_detection-never");}
    $last_detection=api_text("locations_view-last_detection").$difference." ".api_icon("fa-exclamation-triangle");
-   // add difference to detection grid
+   // add difference warning to detection grid
    $detection_grid->addRow();
    $detection_grid->addCol(api_tag("div",api_tag("small",$last_detection),"text-right"),"col-xs-12 col-sm-12");
   }

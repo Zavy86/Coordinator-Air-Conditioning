@@ -28,6 +28,8 @@ class cAirConditioningLocationZone{
  protected $updTimestamp;
  protected $updFkUser;
 
+ protected $manual_temperature;
+ protected $manual_timestamp;
  protected $plannings;
 
  protected $appliances_array;
@@ -64,6 +66,9 @@ class cAirConditioningLocationZone{
   $this->addFkUser=(int)$zone->addFkUser;
   $this->updTimestamp=(int)$zone->updTimestamp;
   $this->updFkUser=(int)$zone->updFkUser;
+  // decode manual
+  $this->manual_temperature=(double)$zone->manual_temperature;
+  $this->manual_timestamp=(int)$zone->manual_timestamp;
   // decode plannings
   $this->plannings=json_decode($zone->plannings,true);
   // convert steps to objects
@@ -179,7 +184,7 @@ class cAirConditioningLocationZone{
   * @return object Current Step
   */
  public function getCurrentStep(){
-  // make time
+  // make hour time
   $time_array=explode(":",date("H:i"));
   $time=(($time_array[0]*3600)+($time_array[1]*60));
   // cycle all current day step
@@ -187,13 +192,29 @@ class cAirConditioningLocationZone{
    // check if time now is beetwen step times
    if($time>=$step->time_start && $time<=$step->time_end){$current_step=$step;}
   }
-  // debug
-  /*api_dump(date("H:i")." -> ".$time,"current_time");
-  api_dump($current_step,"current_step");*/
   // check step
   if(!$current_step->fkModality){return false;}
   // return
   return $current_step;
+ }
+
+ /**
+  * Get Current Temperature
+  *
+  * @return double Current Temperature
+  */
+ public function getCurrentTemperature(){
+  // check for manual
+  if($this->manual_timestamp>time()){return $this->manual_temperature;}
+  // cycle all current day step
+  foreach($this->plannings[strtolower(date("l"))] as $step){
+   // check if time now is beetwen step times
+   if(time()>=$step->time_start && time()<=$step->time_end){$current_step=$step;}
+  }
+  // get current modality
+  $current_modality=new cAirConditioningLocationModality($current_step->fkModality);
+  // return
+  if($current_modality->id){return $current_modality->temperature;}else{return false;}
  }
 
  /**

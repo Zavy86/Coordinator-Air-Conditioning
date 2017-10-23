@@ -58,9 +58,16 @@
  <text key="locations_view">Location</text>
 
  <text key="locations_view-panel-modalities">Gestione modalità</text>
- <text key="locations_view-panel-plannings">Gestione pianificazione</text>
+ <text key="locations_view-panel-plannings">Gestione pianificazione {0}</text>
  <text key="locations_view-panel-offline">Offline</text>
 
+ <text key="locations_view-planning-panel-title">Pianificazione odierna</text>
+ <text key="locations_view-planning-panel-manual">Modifica manualmente</text>
+
+ <text key="locations_view-detection-panel-title">Rilevazione</text>
+ <text key="locations_view-detection-panel-refresh">Aggiorna</text>
+
+ <text key="locations_view-manual">Temperatura impostata manualmente a <![CDATA[{0}]]></text>
  <text key="locations_view-last_detection">Ultima rilevazione: </text>
  <text key="locations_view-last_detection-ago"><![CDATA[{0}]]> fa</text>
  <text key="locations_view-last_detection-never">Mai</text>
@@ -84,23 +91,31 @@
  <text key="locations_view-modalities-fc-delete-confirm">Confermi di voler eliminare questa modalità?</text>
 
  <!-- locations_view_modal_planning -->
- <text key="locations_view-plannings-modal-title"><![CDATA[{0}]]> - Pianificazione settimanale</text>
- <text key="locations_view-plannings-modal-title-edit"><![CDATA[{0}]]> - Pianificazione di {1}</text>
- <text key="locations_view-plannings-modal-title-clone"><![CDATA[{0}]]> - Clonazione pianificazione di {1}</text>
+ <text key="locations_view-plannings-modal-title"><![CDATA[{0}]]> - Pianificazione settimanale <![CDATA[{1}]]></text>
+ <text key="locations_view-plannings-modal-title-edit"><![CDATA[{0}]]> - Pianificazione <![CDATA[{1}]]> di <![CDATA[{2}]]></text>
+ <text key="locations_view-plannings-modal-title-clone"><![CDATA[{0}]]> - Clonazione pianificazione <![CDATA[{1}]]> di <![CDATA[{2}]]></text>
+ <text key="locations_view-plannings-modal-title-manual"><![CDATA[{0}]]> - Pianificazione manuale <![CDATA[{1}]]></text>
 
  <text key="locations_view-plannings-th-day">Giorno</text>
  <text key="locations_view-plannings-th-planning">Pianificazione</text>
  <text key="locations_view-plannings-td-edit">Modifica pianificazione</text>
 
  <text key="locations_view-plannings-ff-fkModality">Modalità</text>
- <text key="locations_view-plannings-ff-fkModality-select">Seleziona una modalità..</text>
- <text key="locations_view-plannings-ff-end">Ora fine step</text>
+ <text key="locations_view-plannings-ff-fkModality-placeholder">Seleziona una modalità..</text>
+ <text key="locations_view-plannings-ff-start">Ora di inizio step</text>
+ <text key="locations_view-plannings-ff-end">Ora di fine step</text>
  <text key="locations_view-plannings-fc-delete">Elimina ultimo step</text>
  <text key="locations_view-plannings-fc-delete-confirm">Confermi di voler eliminare l'ultimo step di questa pianificazione?</text>
 
  <text key="locations_view-plannings-ff-days">Giorni</text>
  <text key="locations_view-plannings-fc-clone">Clona</text>
  <text key="locations_view-plannings-fc-clone-confirm">Confermi di voler clonare la pianificazione di <![CDATA[{0}]]> sui giorni selezionati?</text>
+
+ <text key="locations_view-plannings-ff-temperature">Temperatura</text>
+ <text key="locations_view-plannings-ff-temperature-placeholder">Inserisci la temperatura manuale da mantenere..</text>
+ <text key="locations_view-plannings-ff-duration">Durata</text>
+ <text key="locations_view-plannings-ff-duration-placeholder">Seleziona una durata..</text>
+ <text key="locations_view-plannings-fc-edit">Modifica pianificazione di <![CDATA[{0}]]></text>
 
  <!-- locations_manage -->
  <text key="locations_manage">Gestione location</text>
