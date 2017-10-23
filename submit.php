@@ -525,7 +525,7 @@ function location_zone_planning_manual(){
  $zone_qobj=new stdClass();
  $zone_qobj->id=$zone_obj->id;
  $zone_qobj->manual_temperature=$r_temperature;
- $zone_qobj->manual_duration=$r_duration+time();
+ $zone_qobj->manual_timestamp=$r_duration+time();
  $zone_qobj->updTimestamp=time();
  $zone_qobj->updFkUser=$GLOBALS['session']->user->id;
  //debug
