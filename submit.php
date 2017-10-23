@@ -519,18 +519,25 @@ function location_zone_planning_manual(){
  // acquire variables
  $r_temperature=$_REQUEST['temperature'];
  $r_duration=$_REQUEST['duration'];
- // check variables
- if(!$r_temperature || !$r_duration){api_alerts_add(api_text("air-conditioning_alert_locationZonePlanningError"),"danger");api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&zone=".$zone_obj->id);}
+ $r_disable=$_REQUEST['disable'];
  // build zone query objects
  $zone_qobj=new stdClass();
  $zone_qobj->id=$zone_obj->id;
- $zone_qobj->manual_temperature=$r_temperature;
- $zone_qobj->manual_timestamp=$r_duration+time();
  $zone_qobj->updTimestamp=time();
  $zone_qobj->updFkUser=$GLOBALS['session']->user->id;
+ // check for disable
+ if($r_disable){
+  // disable manual
+  $zone_qobj->manual_timestamp=null;
+ }else{
+  // check variables
+  if(!$r_temperature || !$r_duration){api_alerts_add(api_text("air-conditioning_alert_locationZonePlanningError"),"danger");api_redirect("?mod=air-conditioning&scr=locations_view&idLocation=".$location_obj->id."&zone=".$zone_obj->id);}
+  // set new manual temperature and calculate timestamp
+  $zone_qobj->manual_temperature=$r_temperature;
+  $zone_qobj->manual_timestamp=$r_duration+time();
+ }
  //debug
  api_dump($zone_qobj,"zone query object");
-
  // execute query
  $GLOBALS['database']->queryUpdate("air-conditioning_locations_zones",$zone_qobj);
  // redirect
