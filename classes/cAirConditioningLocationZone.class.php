@@ -204,12 +204,15 @@ class cAirConditioningLocationZone{
   * @return double Current Temperature
   */
  public function getCurrentTemperature(){
+  // make hour time
+  $time_array=explode(":",date("H:i"));
+  $time=(($time_array[0]*3600)+($time_array[1]*60));
   // check for manual
   if($this->manual_timestamp>time()){return $this->manual_temperature;}
   // cycle all current day step
   foreach($this->plannings[strtolower(date("l"))] as $step){
    // check if time now is beetwen step times
-   if(time()>=$step->time_start && time()<=$step->time_end){$current_step=$step;}
+   if($time>=$step->time_start && $time<=$step->time_end){$current_step=$step;}
   }
   // get current modality
   $current_modality=new cAirConditioningLocationModality($current_step->fkModality);
