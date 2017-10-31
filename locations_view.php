@@ -147,7 +147,7 @@
   }
   // check for last detection timestamp
   if((time()-$last_detection->timestamp)>300){
-   // make last detection
+   // make last detection difference
    if($last_detection->timestamp){$difference=api_text("locations_view-last_detection-ago",api_timestampDifferenceFormat(time()-$last_detection->timestamp,false));}
    else{$difference=api_text("locations_view-last_detection-never");}
    $last_detection=api_text("locations_view-last_detection").$difference." ".api_icon("fa-exclamation-triangle");
