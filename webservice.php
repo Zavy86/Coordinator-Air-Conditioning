@@ -30,6 +30,7 @@ $return->errors=array();
 switch(ACTION){
  // zones
  case "zone_upload":zone_upload($return);break;
+ case "zone_getDetection":zone_getDetection($return);break;
  case "zone_getTemperatureSetpoint":zone_getTemperatureSetpoint($return);break;
  // default
  default:
@@ -102,9 +103,9 @@ function zone_upload($return){
 }
 
 /**
- * Zone Get Temperature Setpoint
+ * Zone Get Detection
  */
-function zone_getTemperatureSetpoint($return){
+function zone_getDetection($return){
  // debug
  api_dump($_REQUEST,"_REQUEST");
  // get objects
@@ -116,14 +117,54 @@ function zone_getTemperatureSetpoint($return){
   $return->errors[]=make_error(301,"Zone not found","The zone with token ".$_REQUEST['token']." was not found");
   return $return;
  }
- // make current temperature
+ // get last detection
+ $last_detection=$zone_obj->getDetections(1)[0];
+ // debug
+ api_dump($last_detection,"last_detection");
+ // check if device is offline (15 minutes)
+ if((time()-$last_detection->timestamp)>900){
+  // error
+  $return->ok=false;
+  $return->errors[]=make_error(302,"Zone offline","This zone is offline for ".(time()-$last_detection->timestamp)." seconds");
+  return $return;
+ }
+ // ok
+ $return->ok=true;
+ $return->datas['temperature']=$last_detection->temperature;
+ $return->datas['humidity']=$last_detection->humidity;
+ $return->datas['heater_status']=$last_detection->heater_status;
+ // debug
+ api_dump($return,"return");
+ api_dump($zone_obj,"zone object");
+ // return
+ return $return;
+}
+
+/**
+ * Zone Get Temperature Setpoint
+ */
+function zone_getTemperatureSetpoint($return){
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ // get objects
+ $zone_obj=new cAirConditioningLocationZone($_REQUEST['token']);
+ // check objects
+ if(!$zone_obj->id){
+  // zone not found
+  $return->ok=false;
+  $return->errors[]=make_error(401,"Zone not found","The zone with token ".$_REQUEST['token']." was not found");
+  return $return;
+ }
+ // get current temperature setpoint
  $current_temperature=$zone_obj->getCurrentTemperature();
+ // debug
+ api_dump($current_temperature,"current_temperature");
  // check temperature
  if(!$current_temperature){
   // error
   $return->ok=false;
   $return->datas['temperature']=10; /** @todo verificare e in caso mandare giu la temperatura di antigelo */
-  $return->errors[]=make_error(302,"Modality not found","There was an error loading current modality");
+  $return->errors[]=make_error(402,"Modality not found","There was an error loading current modality");
   return $return;
  }
  // ok
