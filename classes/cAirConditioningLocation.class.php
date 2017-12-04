@@ -16,6 +16,8 @@ class cAirConditioningLocation{
  protected $id;
  protected $name;
  protected $description;
+ protected $latitude;
+ protected $longitude;
  protected $addTimestamp;
  protected $addFkUser;
  protected $updTimestamp;
@@ -45,6 +47,8 @@ class cAirConditioningLocation{
   $this->id=(int)$location->id;
   $this->name=stripslashes($location->name);
   $this->description=stripslashes($location->description);
+  $this->latitude=$location->latitude;
+  $this->longitude=(double)$location->longitude;
   $this->addTimestamp=(int)$location->addTimestamp;
   $this->addFkUser=(int)$location->addFkUser;
   $this->updTimestamp=(int)$location->updTimestamp;
