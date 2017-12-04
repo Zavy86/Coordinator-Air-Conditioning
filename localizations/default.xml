@@ -59,6 +59,7 @@
 
  <text key="locations_view-panel-modalities">Gestione modalità</text>
  <text key="locations_view-panel-plannings">Gestione pianificazione {0}</text>
+ <text key="locations_view-panel-heater-on">Riscaldamento acceso</text>
  <text key="locations_view-panel-offline">Offline</text>
 
  <text key="locations_view-planning-panel-title">Pianificazione odierna</text>
