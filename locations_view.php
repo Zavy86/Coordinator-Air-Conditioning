@@ -37,7 +37,6 @@
 
 
 
-
  foreach($location_obj->zones_array as $zone_obj){
 
   $zone_panel_body=null;
