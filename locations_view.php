@@ -29,7 +29,12 @@
   //$owm_link="http://api.openweathermap.org/data/2.5/weather?q=Aosta,IT&APPID=4cb9f11880fb14e7cb2bc1f0e3042f76&units=metric";
   $owm_link="http://api.openweathermap.org/data/2.5/weather?lat=".$location_obj->latitude."&lon=".$location_obj->longitude."&APPID=4cb9f11880fb14e7cb2bc1f0e3042f76&units=metric";
   $owm_data=json_decode(file_get_contents($owm_link));
-  $own_temperature=api_tag("center",api_tag("h3",api_icon("fa-thermometer-three-quarters")."&nbsp;".round($owm_data->main->temp,1)."°C"));
+
+  $own_temperature=api_icon("fa-thermometer-three-quarters")."&nbsp;".round($owm_data->main->temp,1)."°C&nbsp;";
+  if($owm_data->main->temp<$owm_data->main->temp_max){$own_temperature.=api_tag("span",api_icon("fa-caret-down"),null,"color:#42A5F5;");}
+  else{$own_temperature.=api_tag("span",api_icon("fa-caret-down"),null,"color:#E53935;");}
+  $own_temperature=api_tag("center",api_tag("h3",$own_temperature));
+
   //api_dump(round($owm_data->main->temp,1)."°C");
   //api_dump($owm_data);
  }
@@ -56,7 +61,7 @@
   // che if last detection is not oldest than 5 minutes
   if((time()-$last_detection->timestamp)<3000){
    $zone_panel_body=api_icon("fa-thermometer-three-quarters")."&nbsp;".round($last_detection->temperature,1)."°C";
-   if($last_detection->heater_status){$zone_panel_body.="&nbsp;&nbsp;".api_icon("fa-fire",api_text("locations_view-panel-heater-on"));}
+   if($last_detection->heater_status){$zone_panel_body.="&nbsp;&nbsp;".api_icon("fa-sun-o",api_text("locations_view-panel-heater-on"),"faa-spin animated");}
   }else{
    $zone_panel_body=api_text("locations_view-panel-offline");
   }
