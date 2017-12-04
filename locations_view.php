@@ -43,9 +43,9 @@
 
   $last_detection=$zone_obj->getDetections(1)[0];
   // che if last detection is not oldest than 5 minutes
-  if((time()-$last_detection->timestamp)<300){
+  if((time()-$last_detection->timestamp)<3000){
    $zone_panel_body=api_icon("fa-thermometer-three-quarters")."&nbsp;".round($last_detection->temperature,1)."°C";
-   $zone_panel_body.="&nbsp;&nbsp;".api_icon("fa-fire",api_text("locations_view-panel-heater-on"));
+   if($last_detection->heater_status){$zone_panel_body.="&nbsp;&nbsp;".api_icon("fa-fire",api_text("locations_view-panel-heater-on"));}
   }else{
    $zone_panel_body=api_text("locations_view-panel-offline");
   }
