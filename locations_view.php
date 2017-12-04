@@ -24,6 +24,17 @@
  $zone_panels_array=array();
 
 
+ // open wheater map data
+ if($location_obj->latitude && $location_obj->longitude){
+  //$owm_link="http://api.openweathermap.org/data/2.5/weather?q=Aosta,IT&APPID=4cb9f11880fb14e7cb2bc1f0e3042f76&units=metric";
+  $owm_link="http://api.openweathermap.org/data/2.5/weather?lat=".$location_obj->latitude."&lon=".$location_obj->longitude."&APPID=4cb9f11880fb14e7cb2bc1f0e3042f76&units=metric";
+  $owm_data=json_decode(file_get_contents($owm_link));
+  $own_temperature=api_tag("center",api_tag("h3",api_icon("fa-thermometer-three-quarters")."&nbsp;".round($owm_data->main->temp,1)."°C"));
+  //api_dump(round($owm_data->main->temp,1)."°C");
+  //api_dump($owm_data);
+ }
+
+
  // location menu
  $location_list=new cList();
  $location_list->addElement(api_link("?mod=air-conditioning&scr=locations_view&act=manage_modalities&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id,api_text("locations_view-panel-modalities")));
@@ -32,7 +43,7 @@
 
  // build location panel
  $location_panel=new cPanel($location_obj->name,"panel-primary");
- $location_panel->SetBody($location_obj->description.$location_list->render());
+ $location_panel->SetBody($own_temperature.$location_obj->description.$location_list->render());
 
 
 
