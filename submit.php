@@ -51,6 +51,8 @@ function location_save(){
  $location_qobj->id=$location_obj->id;
  $location_qobj->name=addslashes($_REQUEST['name']);
  $location_qobj->description=addslashes($_REQUEST['description']);
+ $location_qobj->latitude=$_REQUEST['latitude'];
+ $location_qobj->longitude=$_REQUEST['longitude'];
  // check location
  if($location_obj->id){
   // update location

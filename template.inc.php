@@ -25,10 +25,10 @@
   // selected location /** @todo integrare bene */
   if($location_obj->id && SCRIPT=="locations_view"){
    $nav->addItem($location_obj->name,null,null,"active");
-   $nav->addSubItem(api_text("nav-locations-operations-modalities"),"?mod=air-conditioning&scr=locations_modalities_list&idLocation=".$location_obj->id);
+   $nav->addSubItem(api_text("nav-locations-operations-modalities"),"?mod=air-conditioning&scr=locations_view&act=manage_modalities&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id);
    if($selected_zone_obj->id){
-    $nav->addSubHeader(api_text("nav-locations-zones-operations"));
-    $nav->addSubItem(api_text("nav-locations-zones-operations-plannings"),"?mod=air-conditioning&scr=locations_zones_plannings_list&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id);
+    $nav->addSubHeader(api_text("nav-locations-zones-operations",$selected_zone_obj->name));
+    $nav->addSubItem(api_text("nav-locations-zones-operations-plannings"),"?mod=air-conditioning&scr=locations_view&act=manage_plannings&idLocation=".$location_obj->id."&idZone=".$selected_zone_obj->id);
    }
   }
 

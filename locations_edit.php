@@ -17,6 +17,8 @@
  $form=new cForm("?mod=air-conditioning&scr=submit&act=location_save&idLocation=".$location_obj->id,"POST",null,"locations_edit");
  $form->addField("text","name",api_text("locations_edit-ff-name"),$location_obj->name,api_text("locations_edit-ff-name-placeholder"),null,null,null,"required");
  $form->addField("text","description",api_text("locations_edit-ff-description"),$location_obj->description,api_text("locations_edit-ff-description-placeholder"));
+ $form->addField("text","latitude",api_text("locations_edit-ff-latitude"),$location_obj->latitude,api_text("locations_edit-ff-latitude-placeholder"));
+ $form->addField("text","longitude",api_text("locations_edit-ff-longitude"),$location_obj->longitude,api_text("locations_edit-ff-longitude-placeholder"));
  // controls
  $form->addControl("submit",api_text("form-fc-submit"));
  if($location_obj->id){

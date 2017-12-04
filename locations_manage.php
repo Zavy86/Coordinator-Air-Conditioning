@@ -52,10 +52,17 @@
        $authorizations_table->addRowFieldAction("#",api_icon("fa-trash",api_text("locations_manage-authorizations-td-delete"),"hidden-link"),true,api_text("locations_manage-authorizations-td-delete-confirm"));
       }
 
+ // make coordinates
+ if($location_obj->latitude && $location_obj->longitude){
+  $coordinates_dd=round($location_obj->latitude,2)."N, ".round($location_obj->longitude,2)."E";
+  $coordinates_dd.=api_link("https://www.google.com/maps/?q=".$location_obj->latitude.",".$location_obj->longitude,api_icon("fa-crosshairs"),null,null,false,null,null,null,"_blank");
+ }
+
  // build left location description list
  $dl_left=new cDescriptionList("br","dl-horizontal");
  $dl_left->addElement(api_text("locations_manage-dt-name"),api_tag("strong",$location_obj->name));
  $dl_left->addElement(api_text("locations_manage-dt-description"),$location_obj->description);
+ if($coordinates_dd){$dl_left->addElement(api_text("locations_manage-dt-coordinates"),$coordinates_dd);}
 
  // build right location description list
  $dl_right=new cDescriptionList("br","dl-horizontal");
