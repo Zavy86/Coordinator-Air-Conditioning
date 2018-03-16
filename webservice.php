@@ -32,6 +32,7 @@ switch(ACTION){
  case "zone_upload":zone_upload($return);break;
  case "zone_getDetection":zone_getDetection($return);break;
  case "zone_getTemperatureSetpoint":zone_getTemperatureSetpoint($return);break;
+ case "zone_setTemperatureSetpoint":zone_setTemperatureSetpoint($return);break;
  // default
  default:
   // action not found
@@ -170,6 +171,60 @@ function zone_getTemperatureSetpoint($return){
  // ok
  $return->ok=true;
  $return->datas['temperature']=$current_temperature;
+ // debug
+ api_dump($return,"return");
+ api_dump($zone_obj,"zone object");
+ // return
+ return $return;
+}
+
+/**
+ * Zone Set Temperature Setpoint
+ */
+function zone_setTemperatureSetpoint($return){
+ // debug
+ api_dump($_REQUEST,"_REQUEST");
+ // get objects
+ $zone_obj=new cAirConditioningLocationZone($_REQUEST['token']);
+ // acquire variables
+ $r_temperature=$_REQUEST['temperature'];
+ $r_duration=$_REQUEST['duration'];
+ // check objects
+ if(!$zone_obj->id){
+  // zone not found
+  $return->ok=false;
+  $return->errors[]=make_error(501,"Zone not found","The zone with token ".$_REQUEST['token']." was not found");
+  return $return;
+ }
+ // check temperatures
+ if(!$r_temperature){
+  // error
+  $return->ok=false;
+  $return->errors[]=make_error(502,"Temperature not setted","No temperature received or temperature received is lesser than current temperature setted..");
+  return $return;
+ }
+ // check duration
+ if(!$r_duration){$r_duration=3600;}
+ /*
+ // get current temperature setpoint
+ $current_temperature=$zone_obj->getCurrentTemperature();
+ // debug
+ api_dump($current_temperature,"current_temperature");
+ */
+ // build zone query objects
+ $zone_qobj=new stdClass();
+ $zone_qobj->id=$zone_obj->id;
+ $zone_qobj->updTimestamp=time();
+ $zone_qobj->updFkUser=1;
+ // set new manual temperature and calculate timestamp
+ $zone_qobj->manual_temperature=$r_temperature;
+ $zone_qobj->manual_timestamp=(time()+$r_duration);
+ //debug
+ api_dump($zone_qobj,"zone query object");
+ // execute query
+ $GLOBALS['database']->queryUpdate("air-conditioning_locations_zones",$zone_qobj);
+ // ok
+ $return->ok=true;
  // debug
  api_dump($return,"return");
  api_dump($zone_obj,"zone object");
