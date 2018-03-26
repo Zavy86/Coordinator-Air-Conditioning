@@ -6,12 +6,12 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- $authorization="air-conditioning-locations_manage";
+ $authorization="air-conditioning-manage";
  // get objects
  $location_obj=new cAirConditioningLocation($_REQUEST['idLocation']);
  $zone_obj=$location_obj->zones_array[$_REQUEST['idZone']];
  // check objects
- if(!$location_obj->id){api_alerts_add(api_text("framework_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
+ if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title

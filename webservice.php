@@ -1,6 +1,6 @@
 <?php
 /**
- * Framework - Submit
+ * Air Conditioning - Submit
  *
  * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>

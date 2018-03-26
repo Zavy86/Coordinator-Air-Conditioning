@@ -1,6 +1,6 @@
 <?php
 /**
- * Framework - Template
+ * Air Conditioning - Template
  *
  * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
@@ -51,7 +51,7 @@
  }
 
  // management
- if(api_checkAuthorization(MODULE,"air-conditioning-locations_manage")){
+ if(api_checkAuthorization(MODULE,"air-conditioning-manage")){
   $nav->addItem(api_text("nav-management"));
   $nav->addSubItem(api_text("locations_list"),"?mod=air-conditioning&scr=locations_list");
   $nav->addSubItem(api_text("nav-locations-add"),"?mod=air-conditioning&scr=locations_edit");

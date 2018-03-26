@@ -1,8 +1,8 @@
 <?php
 /**
- * Framework - Submit
+ * Air Conditioning - Submit
  *
- * @package Coordinator\Modules\Framework
+ * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */
