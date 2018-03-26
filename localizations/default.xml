@@ -6,6 +6,10 @@
  <text key="air-conditioning">Climatizzazione</text>
  <text key="air-conditioning-description">Climatizzazione ambientale</text>
 
+ <!-- authorizations -->
+ <text key="air-conditioning-manage">Gestione impostazioni</text>
+ <text key="air-conditioning-manage-description">Gestione delle impostazioni della Climatizzazione</text>
+
  <!-- alerts -->
  <text key="air-conditioning_alert_locationError">Si è verificato un errore durante il salvaraggio della location</text>
  <text key="air-conditioning_alert_locationNotFound">La location non è stata trovata</text>

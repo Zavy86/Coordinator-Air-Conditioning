@@ -6,7 +6,7 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- $authorization="air-conditioning-locations_manage";
+ $authorization="air-conditioning-manage";
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title

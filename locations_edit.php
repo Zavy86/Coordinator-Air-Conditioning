@@ -6,7 +6,7 @@
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.zavynet.org
  */
- $authorization="air-conditioning-locations_manage";
+ $authorization="air-conditioning-manage";
  // get objects
  $location_obj=new cAirConditioningLocation($_REQUEST['idLocation']);
  // include module template

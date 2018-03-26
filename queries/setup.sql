@@ -98,6 +98,14 @@ CREATE TABLE IF NOT EXISTS `air-conditioning_locations_zones_detections` (
 -- --------------------------------------------------------
 
 --
+-- Authorizations
+--
+
+INSERT INTO `framework_modules_authorizations` (`id`,`module`,`action`) VALUES (NULL,'air-conditioning','air-conditioning-manage');
+
+-- --------------------------------------------------------
+
+--
 -- Constraints for dumped tables
 --
 

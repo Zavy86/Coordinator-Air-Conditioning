@@ -1,8 +1,8 @@
 <?php
 /**
- * Dashboard Functions
+ * Air Conditioning Functions
  *
- * @package Coordinator\Modules\Dashboard
+ * @package Coordinator\Modules\Air-Conditioning
  * @author  Manuel Zavatta <manuel.zavatta@gmail.com>
  * @link    http://www.coordinator.it
  */

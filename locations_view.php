@@ -14,7 +14,7 @@
   $_REQUEST['idZone']=$selected_zone_obj->id;
  }
  // check objects
- if(!$location_obj->id){api_alerts_add(api_text("framework_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
+ if(!$location_obj->id){api_alerts_add(api_text("air-conditioning_alert_locationNotFound"),"danger");api_redirect("?mod=air-conditioning&scr=locations_list");}
  // include module template
  require_once(MODULE_PATH."template.inc.php");
  // set html title
