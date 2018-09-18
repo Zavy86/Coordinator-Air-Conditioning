@@ -17,15 +17,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `air-conditioning_locations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS `air-conditioning_locations` (
 CREATE TABLE IF NOT EXISTS `air-conditioning_locations_modalities` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkLocation` int(11) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `color` varchar(7) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `temperature` double NOT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `air-conditioning_locations_modalities` (
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkLocation` (`fkLocation`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -57,23 +57,23 @@ CREATE TABLE IF NOT EXISTS `air-conditioning_locations_zones` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fkLocation` int(11) unsigned NOT NULL,
   `order` int(11) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `token` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `heater_relay` int(11) unsigned DEFAULT NULL,
   `cooler_relay` int(11) unsigned DEFAULT NULL,
   `dehumidifier_relay` int(11) unsigned DEFAULT NULL,
   `humidifier_relay` int(11) unsigned DEFAULT NULL,
   `manual_temperature` double DEFAULT NULL,
   `manual_duration` int(11) unsigned DEFAULT NULL,
-  `plannings` text COLLATE utf8_unicode_ci NOT NULL,
+  `plannings` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `addTimestamp` int(11) unsigned NOT NULL,
   `addFkUser` int(11) unsigned NOT NULL,
   `updTimestamp` int(11) unsigned DEFAULT NULL,
   `updFkUser` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fkLocation` (`fkLocation`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `air-conditioning_locations_zones_detections` (
   `dehumidifier_status` tinyint(1) unsigned NOT NULL COMMENT '0 off, 1 on',
   PRIMARY KEY (`id`),
   KEY `fkZone` (`fkZone`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET= utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
